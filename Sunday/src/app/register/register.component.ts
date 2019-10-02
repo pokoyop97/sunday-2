@@ -18,8 +18,8 @@ export class RegisterComponent implements OnInit {
   @ViewChild('imageUser',{static: false}) inputImageUser: ElementRef;
 
   uploadPercent: Observable<number>;
-  urlImage: Observable<string>;
-
+  public urlImage: Observable<string>;
+  public name: string= "";
   ngOnInit() {
   }
 
@@ -42,6 +42,7 @@ export class RegisterComponent implements OnInit {
               displayName: name,
               photoURL: this.inputImageUser.nativeElement.value
             }).then(() => {
+              this.authService.updateUserData(user)
               this.router.navigate(['/refi']);
             }).catch((error) => console.log('error', error));
           }

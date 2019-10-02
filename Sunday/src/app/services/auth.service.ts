@@ -49,7 +49,7 @@ export class AuthService implements OnInit{
     return this.afsAuth.authState.pipe(map(auth => auth));
   }
 
-  private updateUserData(user) {
+  public updateUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: UserInterface = {
       User_id: user.uid,
