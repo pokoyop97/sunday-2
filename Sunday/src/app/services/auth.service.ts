@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from 'rxjs/operators';
 import { auth } from 'firebase/app';
 
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { UserInterface } from '../../user';
-
+import { UserInterface } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-
+export class AuthService implements OnInit{
   constructor(private afsAuth: AngularFireAuth, private afs: AngularFirestore) { }
 
+   ngOnInit(){}
+/* ---------------------------------------------------------------------------------------------------------------- */
   registerUser(email: string, pass: string) {
     return new Promise((resolve, reject) => {
       this.afsAuth.auth.createUserWithEmailAndPassword(email, pass)
@@ -22,15 +22,15 @@ export class AuthService {
         }).catch(err => console.log(reject(err)))
     });
   }
-
+/* ---------------------------------------------------------------------------------------------------------------- */
   loginEmailUser(email: string, pass: string) {
     return new Promise((resolve, reject) => {
       this.afsAuth.auth.signInWithEmailAndPassword(email, pass)
-        .then(userData => resolve(userData),
+        .then(userData => resolve(userData.user),
         err => reject(err));
     });
   }
-
+/* ---------------------------------------------------------------------------------------------------------------- */
   loginFacebookUser() {
     return this.afsAuth.auth.signInWithPopup(new auth.FacebookAuthProvider())
       .then(credential => this.updateUserData(credential.user))
@@ -40,7 +40,7 @@ export class AuthService {
     return this.afsAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
       .then(credential => this.updateUserData(credential.user))
   }
-
+/* ---------------------------------------------------------------------------------------------------------------- */
   logoutUser() {
     return this.afsAuth.auth.signOut();
   }
@@ -52,19 +52,14 @@ export class AuthService {
   private updateUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: UserInterface = {
-      id: user.uid,
+      User_id: user.uid,
       email: user.email,
-      roles: {
-        editor: true
-      }
+      name: user.displayName,
+      photoUrl: user.photoURL
     }
     return userRef.set(data, { merge: true })
   }
 
-
-  isUserAdmin(userUid) {
-    return this.afs.doc<UserInterface>(`users/${userUid}`).valueChanges();
-  }
-
+  
 
 }

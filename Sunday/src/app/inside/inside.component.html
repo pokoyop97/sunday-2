@@ -1,20 +1,17 @@
-<nav class="menu" tabindex="0">
+<section>
+  <nav class="menu" tabindex="0">
 	<div class="smartphone-menu-trigger"></div>
   <header class="avatar" *ngIf="user.photoUrl">
 		<img [src]="user.photoUrl" />
     <h2>{{user.name}}</h2>
   </header>
 	<ul>
-    <li href="#" tabindex="1" class="icon-dashboard btn"><span>Proyectos</span></li>
-    <li href="#" tabindex="2" class="icon-customers btn"><span>Tareas</span></li>
-    <li href="#" tabindex="3" class="icon-users  btn"><span>Miembros</span></li>
-    <li href="#" tabindex="4" class="icon-settings btn"><span>asdasd</span></li>
+    <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
+    <li tabindex="2" class="icon-customers btn" [routerLink]="['/tareas']" routerLinkActive="active"><span>Tareas</span></li>
+    <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>  
   </ul>
   <ul>
-    <li [routerLink]="['/login']" routerLinkActive="active" tabindex="5" class="icon-settings btn" (click)="signOut()"><span>LogOut</span></li>
+    <li tabindex="4" class="icon-settings btn" (click)="onLogout()"><span>LogOut</span></li>
   </ul>
-</nav>
-
-<main>
-  
-</main>
+</nav>  
+</section>

@@ -11,15 +11,25 @@ import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import {ButtonModule} from 'primeng/button';
+import {DropdownModule} from 'primeng/dropdown';
+import {CalendarModule} from 'primeng/calendar';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { RegisterComponent } from './register/register.component';
+import { ChecarComponent } from './checar/checar.component';
+import { MiembrosComponent } from './miembros/miembros.component';
+import { ProyectosComponent } from './proyectos/proyectos.component';
+import { TareasComponent } from './tareas/tareas.component';
+import { ProyectosCrearComponent } from './proyectos-crear/proyectos-crear.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +40,11 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     NavbarComponent,
     RegisterComponent,
+    ChecarComponent,
+    MiembrosComponent,
+    ProyectosComponent,
+    TareasComponent,
+    ProyectosCrearComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -37,12 +52,15 @@ import { RegisterComponent } from './register/register.component';
     AngularFireAuthModule,
     BrowserModule,
     AppRoutingModule,
-    ButtonModule,    
+    ButtonModule,  
+    DropdownModule,  
     FormsModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
+    BrowserAnimationsModule,
+    CalendarModule,
   ],
-  providers: [AngularFireAuth, AngularFirestore],
+  providers: [AngularFireAuth, AngularFirestore,{provide: StorageBucket, useValue: "gs://sunday-5fc9e.appspot.com/"}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

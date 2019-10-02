@@ -1,0 +1,64 @@
+<section>
+  
+  <nav class="menu" tabindex="0">
+	<div class="smartphone-menu-trigger"></div>
+  <header class="avatar" *ngIf="user.photoUrl">
+		<img [src]="user.photoUrl" />
+    <h2>{{user.name}}</h2>
+  </header>
+	<ul>
+    <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/refi']" routerLinkActive="active"><span>Proyectos</span></li>
+    <li tabindex="2" class="icon-customers btn" [routerLink]="['/tareas']" routerLinkActive="active"><span>Tareas</span></li>
+    <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>
+</ul>
+  <ul>
+    <li tabindex="4" class="icon-settings btn" (click)="onLogout()"><span>LogOut</span></li>
+  </ul>
+</nav>  
+</section>
+
+<section id="users" class="mt-5 container-proyectos">
+    <input type="titulo" name="titulo" class="form-control" placeholder="titulo" [(ngModel)]="titulo" required minlength="8">
+    <input type="descripcion" name="descripcion" class="form-control" placeholder="descripcion" [(ngModel)]="descripcion" required minlength="8">
+    <hr>
+          <div class="form-group">
+            <h5>Seleccionar image:</h5>
+            <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
+          </div>
+          <div class="progress">
+            <div [style.visibility]="(uploadPercent == 0) ? 'hidden' : 'visible'" class="progress-bar progress-bar-striped bg-success"
+              role="progressbar" [style.width]="(uploadPercent | async) +'%'">
+            </div>
+          </div>
+    <button pButton type="button" label="Crear nuevo proyecto"class="ui-button-rounded ui-button-success" style="min-width: 300px !important;" (click)="onAddProject()"></button>  
+
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 " *ngFor="let projects of projects">
+          <div class="card_user">
+            <div class="card">
+              <div class="card-body text-center">
+                <p>
+                  <img class="img-fluid" src="{{projects.img}}">
+                </p>
+                <p class="card-text">
+                  {{projects.name}}
+                </p>
+                <p class="card-text">
+                    {{projects.descripcion}}
+                  </p>
+                  
+                <div>
+                  <button pButton type="button" label="Ir" class="ui-button-rounded"></button>
+                  <button pButton type="button" label="Editar" class="ui-button-rounded"></button>
+                  <button pButton type="button" label="Eliminar" class="ui-button-rounded" (click)="onDeleteProject(projects.Project_id, projects.fileref)"></button>
+                  
+                </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    

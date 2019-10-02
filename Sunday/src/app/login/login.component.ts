@@ -11,13 +11,11 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit {
 
   constructor(public afAuth: AngularFireAuth, private router: Router, private authService: AuthService) { }
-  public email: string = '';
-  public password: string = '';
   ngOnInit() {
   }
 
-  onLogin(): void {
-    this.authService.loginEmailUser(this.email, this.password)
+  onLogin(email: string, password: string): void {
+    this.authService.loginEmailUser(email, password)
       .then((res) => {
         this.onLoginRedirect();
       }).catch(err => console.log('err', err.message));

@@ -1,17 +1,17 @@
 
 <body>
-  <div class="container" onclick="onclick">
+  <div class="container">
   <div class="top"></div>
   <div class="bottom"></div>
   <div class="center">
     <button pButton type="button" icon="pi pi-arrow-left" [routerLink]="['/']" routerLinkActive="active"></button>
     <h2>Please Sign In</h2>
-    <input id="email" type="email" placeholder="email" />
-    <input id="password" type="password" placeholder="password" />
-    <button pButton type="button" label="Ingresar" class="ui-button-rounded"style="min-width: 200px !important;"  [routerLink]="['/refi']" routerLinkActive="active" ></button>
+    <input id="email" type="email" placeholder="email" [(ngModel)]="email" required minlength="8" />
+    <input id="password" type="password" placeholder="password" [(ngModel)]="password" required minlength="5"/>
+    <button pButton type="button" label="Ingresar" class="ui-button-rounded"style="min-width: 200px !important;"  (click)="onLogin(email, password)"></button>
     <button pButton type="button" label="Google"class="ui-button-rounded ui-button-danger" style="min-width: 200px !important;" (click)="onLoginGoogle()"></button>
     <button pButton type="button" label="Facebook"class="ui-button-rounded " style="min-width: 200px !important;"(click)="onLoginFacebook()"></button>
-    <button pButton type="button" label="Registrar"class="ui-button-rounded " style="min-width: 200px !important;"(click)="register()"></button>
+    <button pButton type="button" label="Registrar"class="ui-button-rounded ui-button-success" style="min-width: 200px !important;"(click)="register()"></button>
     <h2>&nbsp;</h2>
   </div>
 </div>

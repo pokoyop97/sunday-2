@@ -1,0 +1,66 @@
+<section>
+  <nav class="menu" tabindex="0">
+	<div class="smartphone-menu-trigger"></div>
+  <header class="avatar" *ngIf="user.photoUrl">
+		<img [src]="user.photoUrl" />
+    <h2>{{user.name}}</h2>
+  </header>
+	<ul>
+    <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
+    <li tabindex="2" class="icon-customers btn" [routerLink]="['/refi']" routerLinkActive="active"><span>Tareas</span></li>
+    <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>
+  </ul>
+  <ul>
+    <li tabindex="4" class="icon-settings btn" (click)="onLogout()"><span>LogOut</span></li>
+  </ul>
+</nav>  
+</section>
+
+
+<section class="row mt-5 container-tasks" >
+    <div class="col-12 ">
+      <!-- <button class="btn btn-primary float-right mb-5 col-3">No vale verga este boton</button>
+       --><table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Prioridad</th>
+            <th scope="col">Proyecto</th>
+            <th scope="col">Miembro</th>
+            <th scope="col">Fecha</th>
+
+            <th scope="col">&nbsp;</th>
+            <th scope="col">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let user of users">
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td><p-dropdown [options]="prioridad" filter="true">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                </ng-template>
+            </p-dropdown>
+            </td>
+            <td><p-dropdown [options]="proyecto" filter="true">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                </ng-template>
+            </p-dropdown>
+            </td>
+            <td><p-dropdown [options]="miembro" filter="true">
+                <ng-template let-item pTemplate="selectedItem">
+                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                </ng-template>
+            </p-dropdown>
+            </td>
+            <td>
+              <p-calendar [showIcon]="true"></p-calendar>
+          </td>
+          <td></td>
+
+        </tbody>
+      </table>
+    </div>
+  </section>

@@ -4,26 +4,31 @@
   <div class="top">
   <div class="bottom">
   <div class="center">
-        <form #formRegister="ngForm" (ngSubmit)="onAddUser()">
-          <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+        <form #formRegister="ngForm" (ngSubmit)="onAddUser(email, password, name)">
+          <button pButton type="button"  icon="pi pi-arrow-left" [routerLink]="['/login']" routerLinkActive="active"></button>
+          <h2>Please Sign In</h2>
           <div class="alert alert-danger" role="alert" *ngIf="isError">
             {{msgError}}
           </div>
           <div class="form-group">
             <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="email" required minlength="8">
           </div>
-          <div class="alert alert-danger" role="alert" *ngIf="email.touched && !email.valid">
+          <!-- <div class="alert alert-danger" role="alert" *ngIf="!email.valid">
             <div *ngIf="email.errors.required">Email is required</div>
             <div *ngIf="email.errors.minlength">Email must be at least 8 characters</div>
+          </div> -->
+          <div class="form-group">
+              <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password" required minlength="5"
+                maxlength="10">
           </div>
           <div class="form-group">
-            <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password" required minlength="5"
-              maxlength="10">
+              <input type="name" name="name" class="form-control" placeholder="Nombre" [(ngModel)]="name" required minlength="5"
+                maxlength="100">
           </div>
-          <div class="alert alert-danger" role="alert" *ngIf="password.touched && !password.valid">
+          <!-- <div class="alert alert-danger" role="alert" *ngIf="!password.valid">
             <div *ngIf="password.errors.required">Password is required</div>
             <div *ngIf="password.errors.minlength">Password must be at least 5 characters</div>
-          </div>
+          </div> -->
           <hr>
           <div class="form-group">
             <h5>Seleccionar image:</h5>
@@ -44,7 +49,7 @@
             <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Register</button>
           </ng-template>
         </form>
-
+      </div>
+    </div>
   </div>
-</div>
 </div>
