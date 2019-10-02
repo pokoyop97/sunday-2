@@ -24,7 +24,9 @@ export class InsideComponent implements OnInit {
     this.authService.isAuth().subscribe(user => {
       if (user) {
         this.user.name = user.displayName;
+        this.user.email = user.email;
         this.user.photoUrl = user.photoURL;
+        this.user.User_id = user.uid;
       }
     })
   }

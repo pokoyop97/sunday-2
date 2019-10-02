@@ -18,8 +18,8 @@ export class RegisterComponent implements OnInit {
   @ViewChild('imageUser',{static: false}) inputImageUser: ElementRef;
 
   uploadPercent: Observable<number>;
-  public urlImage: Observable<string>;
-  public name: string= "";
+  private urlImage: Observable<string>;
+  private name: string= "";
   ngOnInit() {
   }
 
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     this.uploadPercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
-  onAddUser(email: string, password: string, name: string) {
+  onAddUser(email: string, password: string) {
     this.authService.registerUser(email, password)
       .then((res) => {
         this.authService.isAuth().subscribe(user => {
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
               photoURL: this.inputImageUser.nativeElement.value
             }).then(() => {
               this.authService.updateUserData(user)
-              this.router.navigate(['/refi']);
+              this.onLoginRedirect();
             }).catch((error) => console.log('error', error));
           }
         });

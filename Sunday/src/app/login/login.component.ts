@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth, private router: Router, private authService: AuthService) { }
+  constructor(private afAuth: AngularFireAuth, private router: Router, private authService: AuthService) { }
   ngOnInit() {
   }
 

@@ -26,7 +26,7 @@ export class AuthService implements OnInit{
   loginEmailUser(email: string, pass: string) {
     return new Promise((resolve, reject) => {
       this.afsAuth.auth.signInWithEmailAndPassword(email, pass)
-        .then(userData => resolve(userData.user),
+        .then(userData => resolve(userData),
         err => reject(err));
     });
   }
