@@ -34,10 +34,6 @@ export class InsideComponent implements OnInit {
 
   onLogout() {
     this.authService.logoutUser(); 
-    this.onLoginRedirect();
-  }
-  onLoginRedirect(): void {
-    this.router.navigate(['/login']);
   }
   
 }

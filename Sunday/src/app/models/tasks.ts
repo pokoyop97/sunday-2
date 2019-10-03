@@ -5,4 +5,5 @@
     name?: string;
     prioridad?: string;
     description?:string;
+    fecha?:string;
   }

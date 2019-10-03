@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     this.uploadPercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
   }
-  onAddUser(email: string, password: string) {
+  onAddUser(email: string, password: string, name: string) {
     this.authService.registerUser(email, password)
       .then((res) => {
         this.authService.isAuth().subscribe(user => {

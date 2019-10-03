@@ -11,7 +11,7 @@
     <li tabindex="3" class="icon-users btn"     [routerLink]="['/refi']" routerLinkActive="active"><span>Miembros</span></li>
   </ul>
   <ul>
-    <li tabindex="4" class="icon-settings btn" (click)="onLogout()"><span>LogOut</span></li>
+    <li tabindex="4" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
   </ul>
 </nav>  
 </section>
@@ -33,12 +33,14 @@
         <tbody *ngFor="let user of users">
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
-            <td><p-dropdown [options]="cars" filter="true">
-                <ng-template let-item pTemplate="selectedItem">
-                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
-                </ng-template>
-            </p-dropdown>
-            <td></td>
+            <td><div class="dropdown">
+              <select #selectProyectos id="selectProyectos" class="ml-3 custom-select">
+                  <option value="0">Seleccione</option>
+                  <option *ngFor="let proyecto of proyectos; let i of index;" 
+                  [value]="proyecto.id">{{proyecto.name}}</option>
+                  </select>
+            </div>
+            </td>
         </tbody>
       </table>
     </div>

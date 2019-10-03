@@ -11,7 +11,7 @@
     <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>
   </ul>
   <ul>
-    <li tabindex="4" class="icon-settings btn" (click)="onLogout()"><span>LogOut</span></li>
+    <li tabindex="4" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
   </ul>
 </nav>  
 </section>
@@ -24,7 +24,7 @@
         <thead>
           <tr>
             <th scope="col">Nombre</th>
-            <th scope="col">Correo</th>
+            <th scope="col">Descripcion</th>
             <th scope="col">Prioridad</th>
             <th scope="col">Proyecto</th>
             <th scope="col">Miembro</th>
@@ -34,33 +34,39 @@
             <th scope="col">&nbsp;</th>
           </tr>
         </thead>
-        <tbody *ngFor="let user of users">
-            <td>{{user.name}}</td>
-            <td>{{user.email}}</td>
-            <td><p-dropdown [options]="prioridad" filter="true">
-                <ng-template let-item pTemplate="selectedItem">
-                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
-                </ng-template>
-            </p-dropdown>
-            </td>
-            <td><p-dropdown [options]="proyecto" filter="true">
-                <ng-template let-item pTemplate="selectedItem">
-                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
-                </ng-template>
-            </p-dropdown>
-            </td>
-            <td><p-dropdown [options]="miembro" filter="true">
-                <ng-template let-item pTemplate="selectedItem">
-                    <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
-                </ng-template>
-            </p-dropdown>
+            <td><input type="Nombre" name="Nombre" class="form-control" placeholder="Nombre" [(ngModel)]="name" required minlength="6"></td>
+            <td><input type="Descripcion" name="Descripcion" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion" required minlength="8"></td>
+            
+
+            <td><div class="dropdown">
+              <select #selectPrioridad id="selectPrioridad" (change)="cambiarTipoPrioridad(selectPrioridad.value)" class="ml-3 custom-select" [(ngModel)]="Prioridad">
+                  <option value="0">Seleccione</option>
+                  <option *ngFor="let prioridad of prioridad; let i of index;" 
+                  [value]="prioridad">{{prioridad}}</option>
+                  </select>
+            </div></td>
+
+
+            <td><div class="dropdown">
+                <select #selectProyectos id="selectProyectos" (change)="cambiarTipoProyecto(selectProyectos.value)" class="ml-3 custom-select">
+                    <option value="0">Seleccione</option>
+                    <option *ngFor="let proyecto of proyectos; let i of index;" 
+                    [value]="proyecto.Project_id">{{proyecto.name}}</option>
+                    </select>
+              </div></td>
+
+
+            <td><div class="dropdown">
+                <select #selectMiembros id="selectMiembros" (change)="cambiarTipoMiembro(selectMiembros.value)" class="ml-3 custom-select">
+                    <option value="0">Seleccione</option>
+                    <option *ngFor="let user of users; let i of index;" [value]="user.User_id"> {{user.name}} </option>
+                    </select>
+              </div>
             </td>
             <td>
-              <p-calendar [showIcon]="true"></p-calendar>
+              <p-calendar [showIcon]="false" dateFormat="dd/mm/yy"></p-calendar>
           </td>
-          <td></td>
-
-        </tbody>
+          <td><button pButton type="button" label="Agregar" class="ui-button-rounded" (click)="onAddTask()"></button></td>
       </table>
     </div>
   </section>

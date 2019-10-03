@@ -30,7 +30,7 @@ export class ProyectosComponent implements OnInit {
 
   downloadURL: Observable<string>;
   uploadPercent: Observable<number>;
-  
+
   private ProjectCollection: AngularFirestoreCollection<ProjectInterface>;
   private projectos: Observable<ProjectInterface[]>;
   private userDoc: AngularFirestoreDocument<UserInterface>;
@@ -46,8 +46,6 @@ export class ProyectosComponent implements OnInit {
     this.ProjectCollection = afs.collection<ProjectInterface>("projects");
     this.projectos = this.ProjectCollection.valueChanges();
   }
-  
-
 
   user: UserInterface = {
     name: "",
@@ -69,21 +67,13 @@ export class ProyectosComponent implements OnInit {
           this.users = users;
         });
         this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
-          console.log("proyectos",projects);
+          console.log("proyectos", projects);
           this.projects = projects;
         });
       }
     });
   }
   /* --------------------------------------------------------------------------------------------------------------------------------- */
-
-  onLogout() {
-    this.authService.logoutUser();
-    this.onLoginRedirect();
-  }
-  onLoginRedirect(): void {
-    this.router.navigate(["/login"]);
-  }
 
   onAddProject() {
     this.onAddProjectDoc();
@@ -104,7 +94,10 @@ export class ProyectosComponent implements OnInit {
       img: this.downloadURL,
       fileref: this.fileref
     };
-    this.afs.doc(`projects/${this.user.email}`).collection(`/creados`).add(newProject);
+    this.afs
+      .doc(`projects/${this.user.email}`)
+      .collection(`/creados`)
+      .add(newProject);
   }
   onUpload(e) {
     // console.log('subir', e.target.files[0]);
@@ -116,29 +109,47 @@ export class ProyectosComponent implements OnInit {
     const ref = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
     this.uploadPercent = task.percentageChanges();
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        ref.getDownloadURL().subscribe(url => {
-          this.downloadURL = url;
-          this.fileref = filePath;
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          ref.getDownloadURL().subscribe(url => {
+            this.downloadURL = url;
+            this.fileref = filePath;
+          });
         })
-      })
-    ).subscribe()
+      )
+      .subscribe();
   }
-  onDeleteProject(docID: string, image: string){
-   const storageRef = this.storage.storage.ref();
-   storageRef.child(image).delete()
-   .then(()=>{
-     console.log("se elimino la imagen")
-   }).catch(err=>{
-     console.log(err)
-   }); 
-   this.afs.doc(`projects/${this.user.email}`).collection(`/creados`).doc(docID)
-   .delete().then(()=>{
-    console.log("se elimino el proyecto")
-  }).catch(err=>{
-    console.log(err)
-  }); 
+  onDeleteProject(docID: string, image: string) {
+    const storageRef = this.storage.storage.ref();
+    storageRef
+      .child(image)
+      .delete()
+      .then(() => {
+        console.log("se elimino la imagen");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    this.afs
+      .doc(`projects/${this.user.email}`)
+      .collection(`/creados`)
+      .doc(docID)
+      .delete()
+      .then(() => {
+        console.log("se elimino el proyecto");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  onLogout() {
+    this.authService.logoutUser();
+    this.onLoginRedirect();
+  }
+  onLoginRedirect(): void {
+    this.router.navigate(["/login"]);
   }
 }
 
