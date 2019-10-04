@@ -44,6 +44,7 @@ export class TareasComponent implements OnInit {
     email: "",
     photoUrl: ""
   };
+  private tasks: TasksInterface[];
   private users: UserInterface[];
   date1: Date;
   prioridad: string[];
@@ -70,6 +71,11 @@ export class TareasComponent implements OnInit {
       }
       this.dataApi.getAllUsers().subscribe(users => {
         this.users = users;
+      });
+      
+      this.dataApi.getAllTasks(user.uid).subscribe(tasks => {
+        console.log(tasks);
+        this.tasks = tasks;
       });
       
       this.afs
@@ -113,16 +119,13 @@ export class TareasComponent implements OnInit {
     });
   }
   cambiarTipoProyecto(value:any){
-    console.log(value)
     this.valorProyecto= value;
   }
   cambiarTipoMiembro(value:any){
-    console.log(value);
     this.valorMiembro= value;
   }
   cambiarTipoPrioridad(value:any){
-    this.valorPrioridad= value;
-    
+    this.valorPrioridad= value; 
   }
 
   onAddTask() {
@@ -134,6 +137,7 @@ export class TareasComponent implements OnInit {
       description: this.descripcion,
       fecha: this.date1.toISOString()
     };
+    console.log(this.project_id)
     this.afs
       .doc(`tasksPerProject/${this.user.email}`)
       .collection(`tareas/${this.project_id}`)
@@ -166,15 +170,6 @@ export class TareasComponent implements OnInit {
         console.log(err);
       });
   }
-
-  /* export interface TasksInterface {
-    Project_id?: string;
-    User_id?:string;
-    name?: string;
-    prioridad?: string;
-    description?:string;
-  } */
-
   onLogout() {
     this.authService.logoutUser();
     this.onLoginRedirect();

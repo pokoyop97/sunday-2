@@ -1,3 +1,8 @@
+.card_user{
+    width: 398px;
+    height: 527px;
+}
+
 $color-1st:#ecaf81;
 $color-2nd: #60b8d4;
 
@@ -10,6 +15,8 @@ $icon-url-dashboard: "${icon-url-base}/gauge.svg";
 $icon-url-customers: "${icon-url-base}/briefcase.svg";
 $icon-url-users: "${icon-url-base}/users.svg";
 $icon-url-settings: "${icon-url-base}/tools.svg";
+
+
 
 body{
 	background:$color-1st;

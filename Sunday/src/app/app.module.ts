@@ -32,7 +32,6 @@ import { MiembrosComponent } from './miembros/miembros.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { ProyectosCrearComponent } from './proyectos-crear/proyectos-crear.component';
-
 @NgModule({
   declarations: [
     AppComponent,

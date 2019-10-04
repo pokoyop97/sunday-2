@@ -23,6 +23,7 @@ const routes: Routes = [
   {path: 'tareas', component: TareasComponent, pathMatch:'full'},
   
   
+  
 ];
 
 @NgModule({

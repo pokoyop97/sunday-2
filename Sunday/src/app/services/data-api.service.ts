@@ -46,6 +46,18 @@ export class DataApiService {
   }));
   }
 
+  public getAllTasks(tareas: string){
+    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tasksPerPerson/`+tareas+`/tareas`);
+    return this.projects = this.ProjectCollection.snapshotChanges()
+    .pipe(map(changes=>{
+      return changes.map( action=>{
+      const data = action.payload.doc.data() as ProjectInterface;
+      data.Project_id = action.payload.doc.id;
+      return data;
+    });
+  }));
+  }
+
   addUser(user: UserInterface): void {
     this.UserCollection.add(user);
   }
