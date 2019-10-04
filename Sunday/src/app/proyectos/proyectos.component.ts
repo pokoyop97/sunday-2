@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../../services/auth.service";
-import { DataApiService } from "../../services/data-api.service";
-import { UserInterface } from "../../models/user";
-import { ProjectInterface } from "../../models/projects";
+import { AuthService } from "../services/auth.service";
+import { DataApiService } from "../services/data-api.service";
+import { UserInterface } from "../models/user";
+import { ProjectInterface } from "../models/projects";
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { AuthService } from "../../services/auth.service";
-import { DataApiService } from "../../services/data-api.service";
-import { UserInterface } from "../../models/user";
-import { TasksInterface } from "../../models/tasks";
+import { AuthService } from "../services/auth.service";
+import { DataApiService } from "../services/data-api.service";
+import { UserInterface } from "../models/user";
+import { TasksInterface } from "../models/tasks";
 import { SelectItem } from "primeng/primeng";
 import { Router } from "@angular/router";
 import {
@@ -12,10 +12,9 @@ import {
 } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { ProjectInterface } from "../../models/projects";
+import { ProjectInterface } from "../models/projects";
 import { Observable } from "rxjs/internal/Observable";
 import { map } from "rxjs/operators";
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 @Component({
   selector: "app-tareas",
   templateUrl: "./tareas.component.html",

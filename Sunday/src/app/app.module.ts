@@ -10,8 +10,8 @@ import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -21,17 +21,17 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { FooterComponent } from './modules/footer/footer.component';
-import { HomeComponent } from './modules/home/home.component';
-import { InsideComponent } from './modules/inside/inside.component';
-import { LoginComponent } from './modules/login/login.component';
-import { NavbarComponent } from './modules/navbar/navbar.component';
-import { RegisterComponent } from './modules/register/register.component';
-import { ChecarComponent } from './modules/checar/checar.component';
-import { MiembrosComponent } from './modules/miembros/miembros.component';
-import { ProyectosComponent } from './modules/proyectos/proyectos.component';
-import { TareasComponent } from './modules/tareas/tareas.component';
-import { ProyectosCrearComponent } from './modules/proyectos-crear/proyectos-crear.component';
+import { FooterComponent } from './footer/footer.component';
+import { HomeComponent } from './home/home.component';
+import { InsideComponent } from './inside/inside.component';
+import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RegisterComponent } from './register/register.component';
+import { ChecarComponent } from './checar/checar.component';
+import { MiembrosComponent } from './miembros/miembros.component';
+import { ProyectosComponent } from './proyectos/proyectos.component';
+import { TareasComponent } from './tareas/tareas.component';
+import { ProyectosCrearComponent } from './proyectos-crear/proyectos-crear.component';
 
 @NgModule({
   declarations: [
