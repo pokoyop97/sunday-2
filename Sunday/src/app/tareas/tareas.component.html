@@ -40,7 +40,7 @@
             
 
             <td><div class="dropdown">
-              <select #selectPrioridad    id="selectPrioridad"  (change)="cambiarTipoPrioridad(selectPrioridad.value)"  class="ml-3 custom-select" [(ngModel)]="Prioridad">
+              <select #selectPrioridad    id="selectPrioridad"  (change)="cambiarTipoPrioridad(selectPrioridad.value)"  class="ml-3 custom-select" [(ngModel)]="prioridad">
                   <option *ngFor="let prioridad of prioridad;" 
                   [value]="prioridad">{{prioridad}}</option>
                   </select>
@@ -113,10 +113,10 @@
               </td>
               <td>{{task.prioridad}}</td>
               <td>{{task.fecha}}</td>
-              <td><button pButton type="button" label="Eliminar" class="ui-button-rounded" (click)="onDeleteProject(projects.Project_id, projects.fileref)"></button></td>
+              <td><button pButton type="button" label="Eliminar" class="ui-button-rounded"></button></td>
               <td>{{indice+1}}</td>
-            </tr>
-            
+            </tr><!-- 
+            (click)="onDeleteProject(projects.Project_id, projects.fileref)" -->
             </thead>
           </table>
 </section>

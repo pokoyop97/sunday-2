@@ -1,14 +1,15 @@
 <section>
   <nav class="menu" tabindex="0">
-	<div class="smartphone-menu-trigger"></div>
+    <div class="smartphone-menu-trigger"></div>
   <header class="avatar" *ngIf="user.photoUrl">
-		<img [src]="user.photoUrl" />
+        <img [src]="user.photoUrl" />
     <h2>{{user.name}}</h2>
   </header>
-	<ul>
+    <ul>
     <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
     <li tabindex="2" class="icon-customers btn" [routerLink]="['/tareas']" routerLinkActive="active"><span>Tareas</span></li>
     <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>  
+    <li tabindex="4" class="icon-users btn"     [routerLink]="['/chat']" routerLinkActive="active"><span>Chat</span></li>  
     
   </ul>
   <ul>

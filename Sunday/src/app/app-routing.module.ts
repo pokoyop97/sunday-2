@@ -9,6 +9,7 @@ import { ProyectosCrearComponent } from './proyectos-crear/proyectos-crear.compo
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { MiembrosComponent } from './miembros/miembros.component';
 import { TareasComponent } from './tareas/tareas.component';
+import { ChatComponent }from './chat/chat.component'
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'proyectos', component: ProyectosComponent, pathMatch:'full'},
   {path: 'miembros', component: MiembrosComponent, pathMatch:'full'},
   {path: 'tareas', component: TareasComponent, pathMatch:'full'},
+  {path: 'chat', component: ChatComponent, pathMatch:'full'},
   
   
   

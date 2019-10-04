@@ -21,16 +21,15 @@ import { map } from "rxjs/operators";
   styleUrls: ["./tareas.component.scss"]
 })
 export class TareasComponent implements OnInit {
+  public valorProyecto: string = "";
+  public valorMiembro: string = "";
+  public valorPrioridad: string = "";
 
-  public valorProyecto: string="";
-  public valorMiembro: string="";
-  public valorPrioridad: string="";
-  
   public project_id: string = "";
   public user_id: string = "";
   public name: string = "";
   public descripcion: string = "";
-  
+
   private ProjectCollection: AngularFirestoreCollection<ProjectInterface>;
   private projectos: Observable<ProjectInterface[]>;
 
@@ -50,12 +49,19 @@ export class TareasComponent implements OnInit {
   prioridad: string[];
   proyecto: SelectItem[];
   miembro: SelectItem[];
-/* -------------------------------------------------------------------------------------------------------------------------------------------------------*/
-  constructor(private authService: AuthService,private dataApi: DataApiService,private router: Router,private storage: AngularFireStorage,private afsAuth: AngularFireAuth,private afs: AngularFirestore  ) {
+  /* -------------------------------------------------------------------------------------------------------------------------------------------------------*/
+  constructor(
+    private authService: AuthService,
+    private dataApi: DataApiService,
+    private router: Router,
+    private storage: AngularFireStorage,
+    private afsAuth: AngularFireAuth,
+    private afs: AngularFirestore
+  ) {
     this.ProjectCollection = afs.collection<ProjectInterface>("projects");
     this.projectos = this.ProjectCollection.valueChanges();
 
-    this.prioridad = ["Nula","Baja","Media","Alta","Muy Alta"];
+    this.prioridad = ["Nula", "Baja", "Media", "Alta", "Muy Alta"];
 
     this.miembro = [];
 
@@ -72,12 +78,12 @@ export class TareasComponent implements OnInit {
       this.dataApi.getAllUsers().subscribe(users => {
         this.users = users;
       });
-      
+
       this.dataApi.getAllTasks(user.uid).subscribe(tasks => {
         console.log(tasks);
         this.tasks = tasks;
       });
-      
+
       this.afs
         .doc(`projects/${this.user.email}`)
         .collection(`/creados/`)
@@ -98,7 +104,6 @@ export class TareasComponent implements OnInit {
               .collection(`/creados`);
             this.itemsCollection.valueChanges().subscribe((data: any) => {
               data.forEach(dato2 => {
-                
                 this.datosProyecto = {
                   Project_id: dato.id,
                   name: dato.data.name,
@@ -118,14 +123,14 @@ export class TareasComponent implements OnInit {
         });
     });
   }
-  cambiarTipoProyecto(value:any){
-    this.valorProyecto= value;
+  cambiarTipoProyecto(value: any) {
+    this.valorProyecto = value;
   }
-  cambiarTipoMiembro(value:any){
-    this.valorMiembro= value;
+  cambiarTipoMiembro(value: any) {
+    this.valorMiembro = value;
   }
-  cambiarTipoPrioridad(value:any){
-    this.valorPrioridad= value; 
+  cambiarTipoPrioridad(value: any) {
+    this.valorPrioridad = value;
   }
 
   onAddTask() {
@@ -137,26 +142,26 @@ export class TareasComponent implements OnInit {
       description: this.descripcion,
       fecha: this.date1.toISOString()
     };
-    console.log(this.project_id)
+    console.log(this.project_id);
     this.afs
       .doc(`tasksPerProject/${this.user.email}`)
       .collection(`tareas/${this.project_id}`)
       .add(newTask);
 
-      let newTask2 = {
-        Project_id: this.valorProyecto,
-        User_id: this.valorMiembro,
-        prioridad: this.valorPrioridad,
-        name: this.name,
-        description: this.descripcion,
-        fecha: this.date1.toISOString()
-      };
-      this.afs
-        .doc(`tasksPerPerson/${this.valorMiembro}`)
-        .collection(`tareas/${this.project_id}`)
-        .add(newTask2);
+    let newTask2 = {
+      Project_id: this.valorProyecto,
+      User_id: this.valorMiembro,
+      prioridad: this.valorPrioridad,
+      name: this.name,
+      description: this.descripcion,
+      fecha: this.date1.toISOString()
+    };
+    this.afs
+      .doc(`tasksPerPerson/${this.valorMiembro}`)
+      .collection(`tareas/${this.project_id}`)
+      .add(newTask2);
   }
- 
+
   onDeleteTask(taskID: string) {
     this.afs
       .doc(`tasks/${this.user.email}`)

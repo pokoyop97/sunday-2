@@ -1,0 +1,54 @@
+<section>
+    <nav class="menu" tabindex="0">
+      <div class="smartphone-menu-trigger"></div>
+    <header class="avatar" *ngIf="user.photoUrl">
+          <img [src]="user.photoUrl" />
+      <h2>{{user.name}}</h2>
+    </header>
+      <ul>
+      <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
+      <li tabindex="2" class="icon-customers btn" [routerLink]="['/tareas']" routerLinkActive="active"><span>Tareas</span></li>
+      <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>  
+      <li tabindex="4" class="icon-users btn"     [routerLink]="['/chat']" routerLinkActive="active"><span>Chat</span></li>  
+      
+    </ul>
+    <ul>
+      <li tabindex="5" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
+    </ul>
+  </nav>  
+  </section>
+  
+  <section>
+      
+      <h3 class="text-center"> <i class="fas fa-comment"></i> Inbox</h3>
+      <hr>
+      <div class="animated fadeIn container main-container">
+        <div class="row justify-content-center d-flex">
+            <div class="dropdown">
+                <select #selectProyectos  id="selectProyectos"  (change)="cambiarTipoProyecto(selectProyectos.value)"   class="ml-3 custom-select">
+                    <option value="0">Seleccione</option>
+                    <option *ngFor="let proyecto of proyectos;" 
+                    [value]="proyecto.Project_id">{{proyecto.name}}</option>
+                    </select>
+              </div>
+            <div class="chat-window">
+                <div class="app-mensajes" #appMensajes id="appMensajes">
+                      <div *ngFor="let chat of chatservice.chats"[ngClass]="{'text-right' : this.user.name == chat.usuario}">
+                          <div class="justify-content-end">
+                              <span class="spanFecha">{{chat.fecha | date:'short'}}</span>
+                              
+                              <span class="badge"
+                              [ngClass]="{'badge-primary': this.user == chat.usuario,
+                            'badge-dark': this.user.name != chat.usuario}">{{chat.nombre}}</span>
+                          </div>
+                          <p>
+                            {{chat.mensaje}}
+                          </p>
+                        </div>
+                    </div>
+                    <input class="mt-1 form-control block" type="text" name="mensaje" (keyup.enter)="enviarMensaje()" [(ngModel)]="mensaje" id=""
+                    placeholder="Enviar mensaje">
+              </div>
+        </div>
+      </div>
+  </section>
