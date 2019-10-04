@@ -65,16 +65,16 @@ body{
 			cursor:pointer;
 			
 			&.icon-dashboard{
-				background-image:url(../../assets/favicon.png);
+				background-image:url(../../../assets/favicon.png);
 			}
 			&.icon-customers{
-				background-image:url(../../assets/favicon.png);
+				background-image:url(../../../assets/favicon.png);
 			}
 			&.icon-users{
-				background-image:url(../../assets/favicon.png);
+				background-image:url(../../../assets/favicon.png);
 			}
 			&.icon-settings{
-				background-image:url(../../assets/favicon.png);
+				background-image:url(../../../assets/favicon.png);
 			}
 			
 			&:hover{
@@ -237,4 +237,7 @@ body{
 	margin-left:20%;
 	margin-right: 10%;
 	margin-top: 10%;
+}
+.custom-select{
+	width: 200px;
 }

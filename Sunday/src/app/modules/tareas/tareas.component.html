@@ -39,8 +39,7 @@
             
 
             <td><div class="dropdown">
-              <select #selectPrioridad id="selectPrioridad" (change)="cambiarTipoPrioridad(selectPrioridad.value)" class="ml-3 custom-select" [(ngModel)]="Prioridad">
-                  <option value="0">Seleccione</option>
+              <select #selectPrioridad    id="selectPrioridad"  (change)="cambiarTipoPrioridad(selectPrioridad.value)"  class="ml-3 custom-select" [(ngModel)]="Prioridad">
                   <option *ngFor="let prioridad of prioridad; let i of index;" 
                   [value]="prioridad">{{prioridad}}</option>
                   </select>
@@ -48,8 +47,7 @@
 
 
             <td><div class="dropdown">
-                <select #selectProyectos id="selectProyectos" (change)="cambiarTipoProyecto(selectProyectos.value)" class="ml-3 custom-select">
-                    <option value="0">Seleccione</option>
+                <select #selectProyectos  id="selectProyectos"  (change)="cambiarTipoProyecto(selectProyectos.value)"   class="ml-3 custom-select">
                     <option *ngFor="let proyecto of proyectos; let i of index;" 
                     [value]="proyecto.Project_id">{{proyecto.name}}</option>
                     </select>
@@ -58,14 +56,11 @@
 
             <td><div class="dropdown">
                 <select #selectMiembros id="selectMiembros" (change)="cambiarTipoMiembro(selectMiembros.value)" class="ml-3 custom-select">
-                    <option value="0">Seleccione</option>
                     <option *ngFor="let user of users; let i of index;" [value]="user.User_id"> {{user.name}} </option>
                     </select>
               </div>
             </td>
-            <td>
-              <p-calendar [showIcon]="false" dateFormat="dd/mm/yy"></p-calendar>
-          </td>
+            <td><p-calendar [(ngModel)]="date1"></p-calendar></td>
           <td><button pButton type="button" label="Agregar" class="ui-button-rounded" (click)="onAddTask()"></button></td>
       </table>
     </div>

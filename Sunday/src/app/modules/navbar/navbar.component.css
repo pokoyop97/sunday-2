@@ -42,7 +42,7 @@ body {
   left: 0;
   -webkit-transform: translateZ(0) scale(1, 1);
   transform: translateZ(0);
-  background: #1b2030 url(../../assets/background.jpg) center no-repeat;
+  background: #1b2030 url(../../../assets/background.jpg) center no-repeat;
   background-size: cover;
   background-attachment: fixed;
   animation: grow 60s linear 10ms infinite;

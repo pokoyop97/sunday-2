@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { InsideComponent } from './inside/inside.component';
-import { RegisterComponent } from './register/register.component'
+import { LoginComponent } from './modules/login/login.component';
+import { HomeComponent } from './modules/home/home.component';
+import { InsideComponent } from './modules/inside/inside.component';
+import { RegisterComponent } from './modules/register/register.component'
 import { registerLocaleData } from '@angular/common';
-import { ChecarComponent } from './checar/checar.component';
-import { ProyectosCrearComponent } from './proyectos-crear/proyectos-crear.component'
-import { ProyectosComponent } from './proyectos/proyectos.component';
-import { MiembrosComponent } from './miembros/miembros.component';
-import { TareasComponent } from './tareas/tareas.component';
+import { ChecarComponent } from './modules/checar/checar.component';
+import { ProyectosCrearComponent } from './modules/proyectos-crear/proyectos-crear.component'
+import { ProyectosComponent } from './modules/proyectos/proyectos.component';
+import { MiembrosComponent } from './modules/miembros/miembros.component';
+import { TareasComponent } from './modules/tareas/tareas.component';
 
 
 const routes: Routes = [

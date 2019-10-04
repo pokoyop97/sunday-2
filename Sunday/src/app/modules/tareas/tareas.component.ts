@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { AuthService } from "../services/auth.service";
-import { DataApiService } from "../services/data-api.service";
-import { UserInterface } from "../models/user";
-import { TasksInterface } from "../models/tasks";
+import { AuthService } from "../../services/auth.service";
+import { DataApiService } from "../../services/data-api.service";
+import { UserInterface } from "../../models/user";
+import { TasksInterface } from "../../models/tasks";
 import { SelectItem } from "primeng/primeng";
 import { Router } from "@angular/router";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { ProjectInterface } from "../models/projects";
+import { ProjectInterface } from "../../models/projects";
 import { Observable } from "rxjs/internal/Observable";
 import { map } from "rxjs/operators";
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
@@ -46,8 +46,7 @@ export class TareasComponent implements OnInit {
     photoUrl: ""
   };
   private users: UserInterface[];
-
-  value: Date;
+  date1: Date;
   prioridad: string[];
   proyecto: SelectItem[];
   miembro: SelectItem[];
@@ -59,6 +58,8 @@ export class TareasComponent implements OnInit {
     this.prioridad = ["Nula","Baja","Media","Alta","Muy Alta"];
 
     this.miembro = [];
+
+    this.date1 = new Date();
   }
   /* ---------------------------------------------------------------------------------------------------------------- */
   ngOnInit() {
@@ -121,17 +122,18 @@ export class TareasComponent implements OnInit {
     this.valorMiembro= value;
   }
   cambiarTipoPrioridad(value:any){
-    console.log(value);
     this.valorPrioridad= value;
+    
   }
 
-  onAddTaskName() {
+  onAddTask() {
     let newTask = {
       Project_id: this.valorProyecto,
       User_id: this.valorMiembro,
       prioridad: this.valorPrioridad,
       name: this.name,
-      description: this.descripcion
+      description: this.descripcion,
+      fecha: this.date1.toISOString()
     };
     this.afs
       .doc(`tasksPerProject/${this.user.email}`)
@@ -144,25 +146,14 @@ export class TareasComponent implements OnInit {
         prioridad: this.valorPrioridad,
         name: this.name,
         description: this.descripcion,
-        
+        fecha: this.date1.toISOString()
       };
       this.afs
         .doc(`tasksPerPerson/${this.valorMiembro}`)
         .collection(`tareas/${this.project_id}`)
         .add(newTask2);
   }
-  onAddTask() {
-    this.onAddTaskDoc();
-    this.onAddTaskName();
-  }
-
-  onAddTaskDoc() {
-    const taskRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `tasks/${this.user.email}`
-    );
-    const data: TasksInterface = {};
-    return taskRef.set(data, { merge: true });
-  }
+ 
   onDeleteTask(taskID: string) {
     this.afs
       .doc(`tasks/${this.user.email}`)

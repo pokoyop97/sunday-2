@@ -4,11 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FooterComponent } from './footer/footer.component';
-import { HomeComponent } from './home/home.component';
-import { InsideComponent } from './inside/inside.component';
-import { LoginComponent } from './login/login.component';
-import { NavbarComponent } from './navbar/navbar.component';
+
 
 import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
@@ -24,12 +20,18 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireStorageModule, StorageBucket } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { RegisterComponent } from './register/register.component';
-import { ChecarComponent } from './checar/checar.component';
-import { MiembrosComponent } from './miembros/miembros.component';
-import { ProyectosComponent } from './proyectos/proyectos.component';
-import { TareasComponent } from './tareas/tareas.component';
-import { ProyectosCrearComponent } from './proyectos-crear/proyectos-crear.component';
+
+import { FooterComponent } from './modules/footer/footer.component';
+import { HomeComponent } from './modules/home/home.component';
+import { InsideComponent } from './modules/inside/inside.component';
+import { LoginComponent } from './modules/login/login.component';
+import { NavbarComponent } from './modules/navbar/navbar.component';
+import { RegisterComponent } from './modules/register/register.component';
+import { ChecarComponent } from './modules/checar/checar.component';
+import { MiembrosComponent } from './modules/miembros/miembros.component';
+import { ProyectosComponent } from './modules/proyectos/proyectos.component';
+import { TareasComponent } from './modules/tareas/tareas.component';
+import { ProyectosCrearComponent } from './modules/proyectos-crear/proyectos-crear.component';
 
 @NgModule({
   declarations: [
