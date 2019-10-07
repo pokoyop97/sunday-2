@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserInterface } from '../models/user';
 import { ProjectInterface } from '../models/projects'
+import { RolesInterface } from '../models/roles'
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 @Injectable({
@@ -15,9 +16,13 @@ export class DataApiService {
     this.users = this.UserCollection.valueChanges();
     this.ProjectCollection = afs.collection<ProjectInterface>('projects');
     this.projects = this.ProjectCollection.valueChanges();
+    this.RolesCollection = afs.collection<RolesInterface>('roles');
+    this.roles = this.RolesCollection.valueChanges();
   }
   private ProjectCollection: AngularFirestoreCollection<ProjectInterface>;
   private UserCollection: AngularFirestoreCollection<UserInterface>;
+  private RolesCollection: AngularFirestoreCollection<RolesInterface>;
+  private roles: Observable<RolesInterface[]>;
   private users: Observable<UserInterface[]>;
   private projects: Observable<ProjectInterface[]>;
   private userDoc: AngularFirestoreDocument<UserInterface>;
@@ -46,8 +51,8 @@ export class DataApiService {
   }));
   }
 
-  public getAllTasks(tareas: string){
-    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tasksPerPerson/`+tareas+`/tareas`);
+  public getAllTasks(proyecto: string,user: string){
+    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tareas/`+proyecto+`/tareas/`+user+`/`+user+`/`);
     return this.projects = this.ProjectCollection.snapshotChanges()
     .pipe(map(changes=>{
       return changes.map( action=>{
@@ -57,17 +62,20 @@ export class DataApiService {
     });
   }));
   }
-  public getTasksPerProject(tareas: string, proyecto: string){
-    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tasksPerProject/`+tareas+`/tareas/`+proyecto+`/`+proyecto);
-    return this.projects = this.ProjectCollection.snapshotChanges()
+
+  public getAllRoles(proyecto: string){
+    this.RolesCollection = this.afs.collection<RolesInterface>(`roles/`+proyecto+`/rol/`);
+    return this.roles = this.RolesCollection.snapshotChanges()
     .pipe(map(changes=>{
       return changes.map( action=>{
-      const data = action.payload.doc.data() as ProjectInterface;
-      data.Project_id = action.payload.doc.id;
+      const data = action.payload.doc.data() as RolesInterface;
+      data.Rol_id = action.payload.doc.id;
+      console.log(data.rol)
       return data;
     });
   }));
   }
+
 
   addUser(user: UserInterface): void {
     this.UserCollection.add(user);

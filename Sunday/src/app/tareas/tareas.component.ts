@@ -79,9 +79,6 @@ export class TareasComponent implements OnInit {
         this.users = users;
       });
 
-      this.dataApi.getAllTasks(user.uid).subscribe(tasks => {
-        this.tasks = tasks;
-      });
 
       this.afs
         .doc(`projects/${this.user.email}`)
@@ -129,7 +126,22 @@ export class TareasComponent implements OnInit {
     this.valorPrioridad = value;
   }
 
+  cambiarTipoProyectoPersonal(value: any) {
+    this.valorProyecto = value;
+  }
+  cambiarTipoMiembroPersonal(value: any) {
+    this.valorMiembro = value;
+    this.cargar();
+  }
+  cargar(){
+    this.dataApi.getAllTasks(this.valorProyecto,this.valorMiembro).subscribe(tasks => {
+      this.tasks = tasks;
+    });
+
+  }
+
   onAddTask() {
+    const id = Math.random().toString(36).substring(2);
     let newTask = {
       Project_id: this.valorProyecto,
       User_id: this.valorMiembro,
@@ -138,23 +150,7 @@ export class TareasComponent implements OnInit {
       description: this.descripcion,
       fecha: this.date1.toISOString()
     };
-    this.afs
-      .doc(`tasksPerProject/${this.user.email}`)
-      .collection(`tareas/`).doc(`${this.valorProyecto}`).collection(`${this.valorProyecto}`)
-      .add(newTask);
-
-    let newTask2 = {
-      Project_id: this.valorProyecto,
-      User_id: this.valorMiembro,
-      prioridad: this.valorPrioridad,
-      name: this.name,
-      description: this.descripcion,
-      fecha: this.date1.toISOString()
-    };
-    this.afs
-      .doc(`tasksPerPerson/${this.valorMiembro}`)
-      .collection(`tareas/${this.project_id}`)
-      .add(newTask2);
+    this.afs.doc(`tareas/${this.valorProyecto}`).collection(`tareas`).doc(`${this.valorMiembro}`).collection(`${this.valorMiembro}`).doc(`${id}`).set(newTask);
   }
 
   onDeleteTask(taskID: string) {

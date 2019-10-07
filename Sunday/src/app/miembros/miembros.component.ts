@@ -14,6 +14,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { ProjectInterface } from "../models/projects";
 import { Observable } from "rxjs/internal/Observable";
 import { map } from "rxjs/operators";
+import { RolesInterface } from '../models/roles';
 
 @Component({
   selector: "app-miembros",
@@ -21,7 +22,11 @@ import { map } from "rxjs/operators";
   styleUrls: ["./miembros.component.scss"]
 })
 export class MiembrosComponent implements OnInit {
+  public roles: string = "";
+  public valorProyecto: string = "";
+  public valorProyectoPersonal: string = "";
   private projects: ProjectInterface[];
+  private rols: RolesInterface[];
 
   private ProjectCollection: AngularFirestoreCollection<ProjectInterface>;
   private projectos: Observable<ProjectInterface[]>;
@@ -58,25 +63,42 @@ export class MiembrosComponent implements OnInit {
       this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
         this.projects = projects;
       });
-      this.dataApi.getAllUsers().subscribe(users => {
-        this.users = users;
-      });
-      this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChanges().pipe(map(actions=> actions.map(a=>{ const data = a.payload.doc.data(); const id = a.payload.doc.id; return {id, data};}))).subscribe(data=>{
-        data.forEach((dato:any)=>{
-          this.itemsCollection = this.afs.doc(`projects/${this.user.email}`).collection(`/creados`);
-          this.itemsCollection.valueChanges().subscribe((data:any)=>{
-            data.forEach(dato2=>{
-              this.datosProyecto ={
-                Project_id: dato.id,
-                name: dato.data.name,
-                description: dato.data.descripcion
-              };})
-              this.proyectos.push({
-                name: dato.data.name,
-                descripcion: dato.data.descripcion,
-                Project_id: dato.id,})})})})});
-            }
+      
+this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChanges().pipe(map(actions=> actions.map(a=>{ const data = a.payload.doc.data(); const id = a.payload.doc.id; return {id, data};}))).subscribe(data=>{
+  data.forEach((dato:any)=>{
+    this.itemsCollection = this.afs.doc(`projects/${this.user.email}`).collection(`/creados`);
+    this.itemsCollection.valueChanges().subscribe((data:any)=>{
+      data.forEach(dato2=>{
+        this.datosProyecto ={
+          Project_id: dato.id,
+          name: dato.data.name,
+          description: dato.data.descripcion
+        };})
+        this.proyectos.push({
+          name: dato.data.name,
+          descripcion: dato.data.descripcion,
+          Project_id: dato.id,})})})})});
+}
 
+  cambiarTipoProyectoPersonal(value: any) {
+    this.valorProyectoPersonal = value;
+  } 
+
+  cambiarTipoProyecto(value: any) {
+    this.valorProyecto = value;
+    this.dataApi.getAllRoles(this.valorProyecto).subscribe(roles => {
+      console.log(roles)
+      this.rols = roles;
+  });
+} 
+  onAddRol(){
+    const id = Math.random().toString(36).substring(2);
+    let newRol = {
+      User_id : "",
+      rol: this.roles,
+    };
+    this.afs.doc(`roles/${this.valorProyecto}`).collection(`rol`).doc(`${id}`).set(newRol);
+  }
   onLogout() {
     this.authService.logoutUser();
     this.onLoginRedirect();
@@ -85,3 +107,23 @@ export class MiembrosComponent implements OnInit {
     this.router.navigate(["/login"]);
   }
 }
+
+
+/* 
+this.dataApi.getAllUsers().subscribe(users => {
+  this.users = users;
+});
+this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChanges().pipe(map(actions=> actions.map(a=>{ const data = a.payload.doc.data(); const id = a.payload.doc.id; return {id, data};}))).subscribe(data=>{
+  data.forEach((dato:any)=>{
+    this.itemsCollection = this.afs.doc(`projects/${this.user.email}`).collection(`/creados`);
+    this.itemsCollection.valueChanges().subscribe((data:any)=>{
+      data.forEach(dato2=>{
+        this.datosProyecto ={
+          Project_id: dato.id,
+          name: dato.data.name,
+          description: dato.data.descripcion
+        };})
+        this.proyectos.push({
+          name: dato.data.name,
+          descripcion: dato.data.descripcion,
+          Project_id: dato.id,})})})})}); */

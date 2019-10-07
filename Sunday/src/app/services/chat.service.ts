@@ -14,13 +14,13 @@ export class ChatService {
   constructor(private afs: AngularFirestore) {}
 
   cargarMensajes(proyectos: string,idProyecto:string){
-    this.itemsCollection = this.afs.collection('projects').doc(proyectos).collection('chats').doc(idProyecto).collection('chats', ref => ref.orderBy('fecha','desc').limit(100));
+    this.itemsCollection = this.afs.collection('chats').doc(idProyecto).collection('chats', ref => ref.orderBy('fecha','desc').limit(100));
     return this.itemsCollection.valueChanges();
   }
 
 
   agregarMensaje(texto:string, idProyecto:string, nombre:string,usuario:string, idProyec: string){
-    this.itemsCollection = this.afs.collection('projects').doc(idProyecto).collection('chats').doc(idProyec).collection('chats');
+    this.itemsCollection = this.afs.collection('chats').doc(idProyec).collection('chats');
     let mensaje:Mensaje = {
       nombre: nombre,
       usuario: usuario,

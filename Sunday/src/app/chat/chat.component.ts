@@ -88,42 +88,6 @@ export class ChatComponent implements OnInit {
             });
           });
         });
-/* -------------------------Proyectos que se unio------------------------------------------------------------ */
-this.afs
-        .doc(`projects/${this.user.email}`)
-        .collection(`/unido/`)
-        .snapshotChanges()
-        .pipe(
-          map(actions =>
-            actions.map(a => {
-              const data = a.payload.doc.data();
-              const id = a.payload.doc.id;
-              return { id, data };
-            })
-          )
-        )
-        .subscribe(data => {
-          data.forEach((dato: any) => {
-            this.itemsCollection = this.afs
-              .doc(`projects/${this.user.email}`)
-              .collection(`/unido`);
-            this.itemsCollection.valueChanges().subscribe((data: any) => {
-              data.forEach(dato2 => {
-                this.datosProyecto = {
-                  Project_id: dato.id,
-                  name: dato.data.name,
-                  description: dato.data.descripcion
-                };
-              });
-              this.proyectos.push({
-                name: dato.data.name,
-                descripcion: dato.data.descripcion,
-                Project_id: dato.id
-              });
-            });
-          });
-        });
-
     });
   }
   cambiarTipoProyecto(value: any) {

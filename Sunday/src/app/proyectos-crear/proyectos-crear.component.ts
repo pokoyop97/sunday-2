@@ -72,22 +72,19 @@ export class ProyectosCrearComponent implements OnInit {
         this.current.get().subscribe(doc=>{
           this.currentInfo.push(doc.data())
           this.asdf = this.currentInfo[0].current;
-          this.dataApi.getTasksPerProject(this.user.email, this.asdf ).subscribe(tasks => {
-            this.tasksPP = tasks;
-          });
-
-          
+            this.dataApi.getAllTasks(this.currentInfo[0].current, user.uid).subscribe(tasks => {
+              console.log(this.currentInfo[0].current, user.uid)
+              console.log("tareas",tasks)
+              this.tasks = tasks;
+            });
         })
-        
         this.dataApi.getAllUsers().subscribe(users => {
           this.users = users;
         });
         this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
           this.projects = projects;
         });
-        this.dataApi.getAllTasks(user.uid).subscribe(tasks => {
-          this.tasks = tasks;
-        });
+        
       }
     });
   }

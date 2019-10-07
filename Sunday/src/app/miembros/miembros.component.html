@@ -24,25 +24,51 @@
        --><table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Correo</th>
+            <th scope="col">Rol</th>
             <th scope="col">Proyecto</th>
             <th scope="col">&nbsp;</th>
             <th scope="col">&nbsp;</th>
           </tr>
         </thead>
-        <tbody *ngFor="let user of users">
-            <td>{{user.name}}</td>
-            <td>{{user.email}}</td>
-            <td><div class="dropdown">
-              <select #selectProyectos id="selectProyectos" class="ml-3 custom-select">
-                  <option value="0">Seleccione</option>
-                  <option *ngFor="let proyecto of proyectos; let i of index;" 
-                  [value]="proyecto.id">{{proyecto.name}}</option>
-                  </select>
-            </div>
-            </td>
-        </tbody>
+        <td><input type="roles" name="roles" class="form-control" placeholder="roles" [(ngModel)]="roles" required minlength="6"></td>
+        <td><div class="dropdown">
+          <select #selectProyectosPersonal  id="selectProyectosPersonal"  (change)="cambiarTipoProyectoPersonal(selectProyectosPersonal.value)"   class="ml-3 custom-select">
+              <option value="0">Seleccione</option>
+              <option *ngFor="let proyecto of proyectos;" 
+              [value]="proyecto.Project_id">{{proyecto.name}}</option>
+              </select>
+        </div></td>
+        <td><button pButton type="button" label="Agregar" class="ui-button-rounded" (click)="onAddRol()"></button></td>
       </table>
     </div>
   </section>
+
+
+  <section class="mt-5 container-tasks">
+    <h3>Roles</h3>
+    <td><div class="dropdown">
+      <select #selectProyecto  id="selectProyecto"  (change)="cambiarTipoProyecto(selectProyecto.value)"   class="ml-3 custom-select">
+          <option value="0">Seleccione</option>
+          <option *ngFor="let proyecto of proyectos;" 
+          [value]="proyecto.Project_id">{{proyecto.name}}</option>
+          </select>
+    </div></td>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Rol</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+
+      <tr *ngFor="let roles of rols; let indice=index">
+        
+            <td>
+              {{roles.User_id}}
+            </td>
+            <td>{{roles.rol}}</td>
+            <td><button pButton type="button" label="Asignar" class="ui-button-rounded"></button></td>
+          </tr>
+          </thead>
+        </table>
+</section>

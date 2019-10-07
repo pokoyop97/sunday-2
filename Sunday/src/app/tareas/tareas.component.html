@@ -75,6 +75,23 @@
   
   <section class="mt-5 container-tasks">
       <h3>Tareas personales</h3>
+      <td><div class="dropdown">
+        <select #selectProyectosPersonal  id="selectProyectosPersonal"  (change)="cambiarTipoProyectoPersonal(selectProyectosPersonal.value)"   class="ml-3 custom-select">
+            <option value="0">Seleccione</option>
+            <option *ngFor="let proyecto of proyectos;" 
+            [value]="proyecto.Project_id">{{proyecto.name}}</option>
+            </select>
+      </div></td>
+
+
+    <td><div class="dropdown">
+        <select #selectMiembrosPersonal id="selectMiembrosPersonal" (change)="cambiarTipoMiembroPersonal(selectMiembrosPersonal.value)" class="ml-3 custom-select">
+            <option value="0">Seleccione</option>
+            <option *ngFor="let user of users;" 
+            [value]="user.User_id"> {{user.name}} </option>
+            </select>
+      </div>
+    </td>
         <table class="table table-hover">
           <thead>
             <tr>

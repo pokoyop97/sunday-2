@@ -95,9 +95,9 @@ export class ProyectosComponent implements OnInit {
 
   onAddProjectName() {
     let newProject = {
+      User_id: this.user.User_id,
       name: this.titulo,
       descripcion: this.descripcion,
-      User_id: this.user.User_id,
       img: this.downloadURL,
       fileref: this.fileref
     };
