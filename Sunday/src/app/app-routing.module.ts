@@ -4,7 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { InsideComponent } from './inside/inside.component';
 import { RegisterComponent } from './register/register.component'
-import { ChecarComponent } from './checar/checar.component';
 import { ProyectosCrearComponent } from './proyectos-crear/proyectos-crear.component'
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { MiembrosComponent } from './miembros/miembros.component';
@@ -17,7 +16,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, pathMatch: 'full', },
   {path: 'refi',component: InsideComponent,pathMatch:'full'},
   {path: 'register', component: RegisterComponent, pathMatch:'full'},
-  {path: 'pruebas', component: ChecarComponent, pathMatch:'full'},
   {path: 'create', component: ProyectosCrearComponent, pathMatch:'full'},
   {path: 'proyectos', component: ProyectosComponent, pathMatch:'full'},
   {path: 'miembros', component: MiembrosComponent, pathMatch:'full'},

@@ -56,11 +56,9 @@ export class MiembrosComponent implements OnInit {
         this.user.photoUrl = user.photoURL;
       }
       this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
-        console.log("proyectos", projects);
         this.projects = projects;
       });
       this.dataApi.getAllUsers().subscribe(users => {
-        console.log("users", users);
         this.users = users;
       });
       this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChanges().pipe(map(actions=> actions.map(a=>{ const data = a.payload.doc.data(); const id = a.payload.doc.id; return {id, data};}))).subscribe(data=>{

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { DataApiService } from "../services/data-api.service";
 import { UserInterface } from "../models/user";
@@ -14,6 +14,7 @@ import {
 } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
+import { ProyectosCrearComponent } from '../proyectos-crear/proyectos-crear.component';
 
 @Component({
   selector: "app-proyectos",
@@ -21,6 +22,8 @@ import { finalize } from "rxjs/operators";
   styleUrls: ["./proyectos.component.scss"]
 })
 export class ProyectosComponent implements OnInit {
+  public newCurrent: any;
+
   public titulo: string = "";
   public descripcion: string = "";
   private users: UserInterface[];
@@ -41,7 +44,7 @@ export class ProyectosComponent implements OnInit {
     private router: Router,
     private storage: AngularFireStorage,
     private afsAuth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
   ) {
     this.ProjectCollection = afs.collection<ProjectInterface>("projects");
     this.projectos = this.ProjectCollection.valueChanges();
@@ -63,18 +66,21 @@ export class ProyectosComponent implements OnInit {
         this.user.photoUrl = user.photoURL;
         this.user.User_id = user.uid;
         this.dataApi.getAllUsers().subscribe(users => {
-          console.log("users", users);
           this.users = users;
         });
         this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
-          console.log("proyectos", projects);
           this.projects = projects;
         });
       }
     });
   }
   /* --------------------------------------------------------------------------------------------------------------------------------- */
-
+  ViewProyecto(value: string){
+    let newCurrent ={
+      current: value,
+    }
+    this.afs.collection('current').doc('proyecto').set(newCurrent)
+  }
   onAddProject() {
     this.onAddProjectDoc();
     this.onAddProjectName();
@@ -86,6 +92,7 @@ export class ProyectosComponent implements OnInit {
     const data: ProjectInterface = {};
     return projectRef.set(data, { merge: false });
   }
+
   onAddProjectName() {
     let newProject = {
       name: this.titulo,
@@ -100,7 +107,6 @@ export class ProyectosComponent implements OnInit {
       .add(newProject);
   }
   onUpload(e) {
-    // console.log('subir', e.target.files[0]);
     const id = Math.random()
       .toString(36)
       .substring(2);

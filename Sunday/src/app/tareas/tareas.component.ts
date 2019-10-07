@@ -80,7 +80,6 @@ export class TareasComponent implements OnInit {
       });
 
       this.dataApi.getAllTasks(user.uid).subscribe(tasks => {
-        console.log(tasks);
         this.tasks = tasks;
       });
 
@@ -110,9 +109,6 @@ export class TareasComponent implements OnInit {
                   description: dato.data.descripcion
                 };
               });
-              /* console.log(dato.id);
-              console.log(dato.data.name);
-              console.log(dato.data.descripcion); */
               this.proyectos.push({
                 name: dato.data.name,
                 descripcion: dato.data.descripcion,
@@ -142,10 +138,9 @@ export class TareasComponent implements OnInit {
       description: this.descripcion,
       fecha: this.date1.toISOString()
     };
-    console.log(this.project_id);
     this.afs
       .doc(`tasksPerProject/${this.user.email}`)
-      .collection(`tareas/${this.project_id}`)
+      .collection(`tareas/`).doc(`${this.valorProyecto}`).collection(`${this.valorProyecto}`)
       .add(newTask);
 
     let newTask2 = {

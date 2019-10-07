@@ -19,7 +19,7 @@ export class DataApiService {
   private ProjectCollection: AngularFirestoreCollection<ProjectInterface>;
   private UserCollection: AngularFirestoreCollection<UserInterface>;
   private users: Observable<UserInterface[]>;
-  private projects: Observable<ProjectInterface[]>
+  private projects: Observable<ProjectInterface[]>;
   private userDoc: AngularFirestoreDocument<UserInterface>;
   
 
@@ -48,6 +48,17 @@ export class DataApiService {
 
   public getAllTasks(tareas: string){
     this.ProjectCollection = this.afs.collection<ProjectInterface>(`tasksPerPerson/`+tareas+`/tareas`);
+    return this.projects = this.ProjectCollection.snapshotChanges()
+    .pipe(map(changes=>{
+      return changes.map( action=>{
+      const data = action.payload.doc.data() as ProjectInterface;
+      data.Project_id = action.payload.doc.id;
+      return data;
+    });
+  }));
+  }
+  public getTasksPerProject(tareas: string, proyecto: string){
+    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tasksPerProject/`+tareas+`/tareas/`+proyecto+`/`+proyecto);
     return this.projects = this.ProjectCollection.snapshotChanges()
     .pipe(map(changes=>{
       return changes.map( action=>{

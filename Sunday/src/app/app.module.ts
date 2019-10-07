@@ -27,7 +27,6 @@ import { InsideComponent } from './inside/inside.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
-import { ChecarComponent } from './checar/checar.component';
 import { MiembrosComponent } from './miembros/miembros.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { TareasComponent } from './tareas/tareas.component';
@@ -43,7 +42,6 @@ import { ChatComponent } from './chat/chat.component';
     LoginComponent,
     NavbarComponent,
     RegisterComponent,
-    ChecarComponent,
     MiembrosComponent,
     ProyectosComponent,
     TareasComponent,

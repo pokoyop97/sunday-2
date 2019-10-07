@@ -1,122 +1,104 @@
 <section>
-  <nav class="menu" tabindex="0">
-	<div class="smartphone-menu-trigger"></div>
-  <header class="avatar" *ngIf="user.photoUrl">
-		<img [src]="user.photoUrl" />
-    <h2>{{user.name}}</h2>
-  </header>
-	<ul>
-    <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
-    <li tabindex="2" class="icon-customers btn" [routerLink]="['/refi']" routerLinkActive="active"><span>Tareas</span></li>
-    <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>
-    <li tabindex="4" class="icon-users btn"     [routerLink]="['/mostrar-tareas']" routerLinkActive="active"><span>Mostrar mis tareas</span></li>  
-  </ul>
-  <ul>
-    <li tabindex="5" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
-  </ul>
-</nav>  
-</section>
-
-
-<section class="row mt-5 container-tasks" >
-    <div class="col-12 ">
-      <!-- <button class="btn btn-primary float-right mb-5 col-3">No vale verga este boton</button>
-       --><table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Prioridad</th>
-            <th scope="col">Proyecto</th>
-            <th scope="col">Miembro</th>
-            <th scope="col">Fecha</th>
-
-            <th scope="col">&nbsp;</th>
-            <th scope="col">&nbsp;</th>
-          </tr>
-        </thead>
-            <td><input type="Nombre" name="Nombre" class="form-control" placeholder="Nombre" [(ngModel)]="name" required minlength="6"></td>
-            <td><input type="Descripcion" name="Descripcion" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion" required minlength="8"></td>
-            
-
-            <td><div class="dropdown">
-              <select #selectPrioridad    id="selectPrioridad"  (change)="cambiarTipoPrioridad(selectPrioridad.value)"  class="ml-3 custom-select" [(ngModel)]="prioridad">
-                  <option *ngFor="let prioridad of prioridad;" 
-                  [value]="prioridad">{{prioridad}}</option>
-                  </select>
-            </div></td>
-
-
-            <td><div class="dropdown">
-                <select #selectProyectos  id="selectProyectos"  (change)="cambiarTipoProyecto(selectProyectos.value)"   class="ml-3 custom-select">
-                    <option value="0">Seleccione</option>
-                    <option *ngFor="let proyecto of proyectos;" 
-                    [value]="proyecto.Project_id">{{proyecto.name}}</option>
+    <nav class="menu" tabindex="0">
+    <div class="smartphone-menu-trigger"></div>
+    <header class="avatar" *ngIf="user.photoUrl">
+      <img [src]="user.photoUrl" />
+      <h2>{{user.name}}</h2>
+    </header>
+    <ul>
+      <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
+      <li tabindex="2" class="icon-customers btn" [routerLink]="['/refi']" routerLinkActive="active"><span>Tareas</span></li>
+      <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>
+      <li tabindex="3" class="icon-users btn"     [routerLink]="['/chat']" routerLinkActive="active"><span>Chat</span></li>
+    </ul>
+    <ul>
+      <li tabindex="5" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
+    </ul>
+  </nav>  
+  </section>
+  
+  
+  <section class="row mt-5 container-tasks" >
+      <div class="col-12 ">
+        <!-- <button class="btn btn-primary float-right mb-5 col-3">No vale verga este boton</button>
+         --><table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Prioridad</th>
+              <th scope="col">Proyecto</th>
+              <th scope="col">Miembro</th>
+              <th scope="col">Fecha</th>
+  
+              <th scope="col">&nbsp;</th>
+              <th scope="col">&nbsp;</th>
+            </tr>
+          </thead>
+              <td><input type="Nombre" name="Nombre" class="form-control" placeholder="Nombre" [(ngModel)]="name" required minlength="6"></td>
+              <td><input type="Descripcion" name="Descripcion" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion" required minlength="8"></td>
+              
+  
+              <td><div class="dropdown">
+                <select #selectPrioridad    id="selectPrioridad"  (change)="cambiarTipoPrioridad(selectPrioridad.value)"  class="ml-3 custom-select" [(ngModel)]="Prioridad">
+                    <option *ngFor="let prioridad of prioridad;" 
+                    [value]="prioridad">{{prioridad}}</option>
                     </select>
               </div></td>
-
-
-            <td><div class="dropdown">
-                <select #selectMiembros id="selectMiembros" (change)="cambiarTipoMiembro(selectMiembros.value)" class="ml-3 custom-select">
-                    <option value="0">Seleccione</option>
-                    <option *ngFor="let user of users;" 
-                    [value]="user.User_id"> {{user.name}} </option>
-                    </select>
-              </div>
-            </td>
-            <td><p-calendar [(ngModel)]="date1"></p-calendar></td>
-          <td><button pButton type="button" label="Agregar" class="ui-button-rounded" (click)="onAddTask()"></button></td>
-      </table>
-    </div>
-  </section>
-
-
-
-  <section>
-      <nav class="menu" tabindex="0">
-        <div class="smartphone-menu-trigger"></div>
-      <header class="avatar" *ngIf="user.photoUrl">
-            <img [src]="user.photoUrl" />
-        <h2>{{user.name}}</h2>
-      </header>
-        <ul>
-        <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
-        <li tabindex="2" class="icon-customers btn" [routerLink]="['/tareas']" routerLinkActive="active"><span>Tareas</span></li>
-        <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>  
-      </ul>
-      <ul>
-        <li tabindex="5" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
-      </ul>
-    </nav>  
-    </section>      
-
-<section class="mt-5 container-tasks">
-    <h3>Tareas personales</h3>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Prioridad</th>
-            <th scope="col">Fecha</th>
   
-            <th scope="col">&nbsp;</th>
-          </tr>
-
-        <tr *ngFor="let task of tasks; let indice=index">
-          
-              <td>
-                {{task.name}}
+  
+              <td><div class="dropdown">
+                  <select #selectProyectos  id="selectProyectos"  (change)="cambiarTipoProyecto(selectProyectos.value)"   class="ml-3 custom-select">
+                      <option value="0">Seleccione</option>
+                      <option *ngFor="let proyecto of proyectos;" 
+                      [value]="proyecto.Project_id">{{proyecto.name}}</option>
+                      </select>
+                </div></td>
+  
+  
+              <td><div class="dropdown">
+                  <select #selectMiembros id="selectMiembros" (change)="cambiarTipoMiembro(selectMiembros.value)" class="ml-3 custom-select">
+                      <option value="0">Seleccione</option>
+                      <option *ngFor="let user of users;" 
+                      [value]="user.User_id"> {{user.name}} </option>
+                      </select>
+                </div>
               </td>
-              <td >
-                  {{task.description}}
-              </td>
-              <td>{{task.prioridad}}</td>
-              <td>{{task.fecha}}</td>
-              <td><button pButton type="button" label="Eliminar" class="ui-button-rounded"></button></td>
-              <td>{{indice+1}}</td>
-            </tr><!-- 
-            (click)="onDeleteProject(projects.Project_id, projects.fileref)" -->
-            </thead>
-          </table>
-</section>
+              <td><p-calendar [(ngModel)]="date1"></p-calendar></td>
+            <td><button pButton type="button" label="Agregar" class="ui-button-rounded" (click)="onAddTask()"></button></td>
+        </table>
+      </div>
+    </section>
+  
+  
+      
+  
+  <section class="mt-5 container-tasks">
+      <h3>Tareas personales</h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Prioridad</th>
+              <th scope="col">Fecha</th>
+    
+              <th scope="col">&nbsp;</th>
+            </tr>
+  
+          <tr *ngFor="let task of tasks; let indice=index">
+            
+                <td>
+                  {{task.name}}
+                </td>
+                <td >
+                    {{task.description}}
+                </td>
+                <td>{{task.prioridad}}</td>
+                <td>{{task.fecha}}</td>
+                <td><button pButton type="button" label="Eliminar" class="ui-button-rounded"></button></td>
+              </tr><!-- 
+              (click)="onDeleteProject(projects.Project_id, projects.fileref)" -->
+              </thead>
+            </table>
+  </section>

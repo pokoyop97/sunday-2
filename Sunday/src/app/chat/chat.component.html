@@ -9,7 +9,7 @@
       <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
       <li tabindex="2" class="icon-customers btn" [routerLink]="['/tareas']" routerLinkActive="active"><span>Tareas</span></li>
       <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>  
-      <li tabindex="4" class="icon-users btn"     [routerLink]="['/chat']" routerLinkActive="active"><span>Chat</span></li>  
+      <li tabindex="4" class="icon-users btn"     [routerLink]="['/refi']" routerLinkActive="active"><span>Chat</span></li>  
       
     </ul>
     <ul>
@@ -20,17 +20,18 @@
   
   <section>
       
-      <h3 class="text-center"> <i class="fas fa-comment"></i> Inbox</h3>
+      <h3 class="text-center"> <i class="fas fa-comment"></i> Chats</h3>
       <hr>
       <div class="animated fadeIn container main-container">
+          <div class="dropdown">
+              <select #selectProyectos  id="selectProyectos"  (change)="cambiarTipoProyecto(selectProyectos.value)"   class="ml-3 custom-select">
+                  <option value="0">Seleccione un proyecto</option>
+                  <option *ngFor="let proyecto of proyectos;" 
+                  [value]="proyecto.Project_id">{{proyecto.name}}</option>
+                  </select>
+            </div>
         <div class="row justify-content-center d-flex">
-            <div class="dropdown">
-                <select #selectProyectos  id="selectProyectos"  (change)="cambiarTipoProyecto(selectProyectos.value)"   class="ml-3 custom-select">
-                    <option value="0">Seleccione</option>
-                    <option *ngFor="let proyecto of proyectos;" 
-                    [value]="proyecto.Project_id">{{proyecto.name}}</option>
-                    </select>
-              </div>
+            
             <div class="chat-window">
                 <div class="app-mensajes" #appMensajes id="appMensajes">
                       <div *ngFor="let chat of chatservice.chats"[ngClass]="{'text-right' : this.user.name == chat.usuario}">
