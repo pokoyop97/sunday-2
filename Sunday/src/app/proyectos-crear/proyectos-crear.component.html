@@ -32,7 +32,7 @@
               <th scope="col">&nbsp;</th>
             </tr>
   
-          <tr *ngFor="let task of tasks; let indice=index">
+          <tr *ngFor="let task of tasksU; let indice=index">
             
                 <td>
                   {{task.name}}
@@ -60,7 +60,7 @@
           <th scope="col">&nbsp;</th>
         </tr>
 
-      <tr *ngFor="let roles of rols; let indice=index">
+      <tr *ngFor="let roles of rolsU; let indice=index">
             <td>{{roles.nombre}}</td>
 
             <td>{{roles.rol}}</td>

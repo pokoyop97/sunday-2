@@ -19,6 +19,7 @@
 </section>
 
 <section id="users" class="mt-5 container-proyectos">
+  <h3>Administrados</h3>
   <div class="container-fluid">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4 " *ngFor="let projects of projects">
@@ -47,6 +48,36 @@
     </div>
 </section>
 
+
+<section id="users" class="mt-5 container-proyectos">
+    <h3>Miembro</h3>
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4 " *ngFor="let projects of projectsU">
+            <div class="card_user">
+              <div class="card">
+                <div class="card-body text-center">
+                  <p>
+                    <img class="img-fluid" src="{{projects.img}}">
+                  </p>
+                  <p class="card-text">
+                    {{projects.name}}
+                  </p>
+                  <p class="card-text">
+                      {{projects.descripcion}}
+                    </p>
+                  <div>
+                    <button pButton type="button" label="Ir" class="ui-button-rounded"  (click)="ViewProyectoUnido(projects.Project_id)"[routerLink]="['/create']" routerLinkActive="active"></button>
+                    <button pButton type="button" label="Editar" class="ui-button-rounded"></button>
+                    <button pButton type="button" label="Eliminar" class="ui-button-rounded" (click)="onDeleteProject(projects.Project_id, projects.fileref)"></button>
+                  </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 
 
 <div id="crear"class="mt-5 container-proyectos">

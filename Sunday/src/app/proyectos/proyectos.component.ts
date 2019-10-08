@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { DataApiService } from "../services/data-api.service";
 import { UserInterface } from "../models/user";
+import { RolesInterface } from "../models/roles"
 import { ProjectInterface } from "../models/projects";
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
@@ -10,7 +11,8 @@ import { Observable } from "rxjs/internal/Observable";
 import { AngularFirestoreCollection, AngularFirestoreDocument } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
-import { EmailValidator } from '@angular/forms';
+
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-proyectos",
@@ -18,12 +20,19 @@ import { EmailValidator } from '@angular/forms';
   styleUrls: ["./proyectos.component.scss"]
 })
 export class ProyectosComponent implements OnInit {
+  private itemsCollection: AngularFirestoreCollection<any>;
+  
+  public email: string= "";
+  public idpro: string= "";
+  private rols: RolesInterface[];
+
   public newCurrent: any;
 
   public titulo: string = "";
   public descripcion: string = "";
   private users: UserInterface[];
   private projects: ProjectInterface[];
+  private projectsU: ProjectInterface[];
   public providerId: string = "null";
   public fileref: string;
 
@@ -67,7 +76,11 @@ export class ProyectosComponent implements OnInit {
         this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
           this.projects = projects;
         });
+        this.dataApi.getAllProjectsUnidos(this.user.email).subscribe(projects => {
+          this.projectsU = projects;
+        });
       }
+        
     });
   }
   /* --------------------------------------------------------------------------------------------------------------------------------- */
@@ -78,6 +91,14 @@ export class ProyectosComponent implements OnInit {
     }
     this.afs.collection('current').doc('proyecto').set(newCurrent)
   }
+
+  ViewProyectoUnido(value: string){
+    let newCurrent ={
+      current: value
+    }
+    this.afs.collection('currentUnido').doc('proyecto').set(newCurrent)
+  }
+
   onAddProject() {
     this.onAddProjectDoc();
     this.onAddProjectName();

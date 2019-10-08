@@ -51,18 +51,6 @@ export class DataApiService {
   }));
   }
 
-  public getAllTasksByUser(proyecto: string,user: string){
-    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tareas/`+proyecto+`/tareas/`+user+`/`+user+`/`);
-    return this.projects = this.ProjectCollection.snapshotChanges()
-    .pipe(map(changes=>{
-      return changes.map( action=>{
-      const data = action.payload.doc.data() as ProjectInterface;
-      data.Project_id = action.payload.doc.id;
-      return data;
-    });
-  }));
-  }
-
   public getAllTasks(proyecto: string){
     this.ProjectCollection = this.afs.collection<ProjectInterface>(`tareas/`+proyecto+`/works/`);
     return this.projects = this.ProjectCollection.snapshotChanges()
@@ -75,6 +63,20 @@ export class DataApiService {
   }));
   }
 
+  public getAllTasksByUser(proyecto: string,user: string){
+    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tareas/`+proyecto+`/tareas/`+user+`/`+user+`/`);
+    return this.projects = this.ProjectCollection.snapshotChanges()
+    .pipe(map(changes=>{
+      return changes.map( action=>{
+      const data = action.payload.doc.data() as ProjectInterface;
+      data.Project_id = action.payload.doc.id;
+      return data;
+    });
+  }));
+  }
+
+
+
   public getAllRoles(proyecto: string){
     this.RolesCollection = this.afs.collection<RolesInterface>(`roles/`+proyecto+`/rol/`);
     return this.roles = this.RolesCollection.snapshotChanges()
@@ -86,6 +88,20 @@ export class DataApiService {
     });
   }));
   }
+
+  public getAllProjectsUnidos(email: string){
+    this.ProjectCollection = this.afs.collection<ProjectInterface>(`unido/`+email+`/rol`);
+    return this.projects = this.ProjectCollection.snapshotChanges()
+    .pipe(map(changes=>{
+      return changes.map( action=>{
+      const data = action.payload.doc.data() as ProjectInterface;
+      data.Project_id = action.payload.doc.id;
+      return data;
+    });
+  }));
+  }
+
+
 
 
   addUser(user: UserInterface): void {

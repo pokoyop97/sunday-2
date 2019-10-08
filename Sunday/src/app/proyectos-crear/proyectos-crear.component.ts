@@ -24,6 +24,9 @@ export class ProyectosCrearComponent implements OnInit {
 
   private rols: RolesInterface[];
   private tasks: TasksInterface[];
+  private rolsU: RolesInterface[];
+  private tasksU: TasksInterface[];
+  
   private tasksBU: TasksInterface[];
   public titulo: string = "";
   public descripcion: string = "";
@@ -33,6 +36,7 @@ export class ProyectosCrearComponent implements OnInit {
   public fileref: string;
 
   currentInfo = new Array();
+  currentInfoU = new Array();
 
   downloadURL: Observable<string>;
   uploadPercent: Observable<number>;
@@ -41,6 +45,7 @@ export class ProyectosCrearComponent implements OnInit {
   private projectos: Observable<ProjectInterface[]>;
   private userDoc: AngularFirestoreDocument<UserInterface>;
   private current: AngularFirestoreDocument<CurrentInterface>;
+  private currentU: AngularFirestoreDocument<CurrentInterface>;
 
   constructor(
     private authService: AuthService,
@@ -85,6 +90,23 @@ export class ProyectosCrearComponent implements OnInit {
           });
 
         })
+        this.currentU = this.afs.doc<CurrentInterface>('currentUnido/proyecto');
+        this.currentU.get().subscribe(doc=>{
+          this.currentInfoU.push(doc.data())
+          this.asdf = this.currentInfoU[0].current;
+          this.dataApi.getAllTasksByUser(this.currentInfoU[0].current, user.uid).subscribe(tasks => {
+            this.tasksBU = tasks;
+          });
+          this.dataApi.getAllTasks(this.currentInfoU[0].current).subscribe(tasks => {
+            this.tasksU = tasks;
+          });
+          this.dataApi.getAllRoles(this.currentInfoU[0].current).subscribe(roles => {
+            this.rolsU = roles;
+          });
+
+        })
+
+
         this.dataApi.getAllUsers().subscribe(users => {
           this.users = users;
         });

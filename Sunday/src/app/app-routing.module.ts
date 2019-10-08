@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'tareas', component: TareasComponent, pathMatch:'full'},
   {path: 'chat', component: ChatComponent, pathMatch:'full'},
   {path: 'unirse', component: UnirseComponent},
-  {path: 'unirse/:idProyecto/:idRol', component: UnirseComponent},
+  {path: 'unirse/:idProyecto/:idRol/:email', component: UnirseComponent},
   
 ];
 
