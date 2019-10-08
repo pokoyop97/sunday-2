@@ -77,10 +77,10 @@ export class TareasComponent implements OnInit {
         this.user.photoUrl = user.photoURL;
         this.user.User_id = user.uid;
       }
-      this.dataApi.getAllUsers().subscribe(users => {
+/*       this.dataApi.getAllUsers().subscribe(users => {
         this.users = users;
       });
-
+ */
 
       this.afs
         .doc(`projects/${this.user.email}`)

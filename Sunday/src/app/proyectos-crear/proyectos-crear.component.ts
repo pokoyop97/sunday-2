@@ -107,9 +107,9 @@ export class ProyectosCrearComponent implements OnInit {
         })
 
 
-        this.dataApi.getAllUsers().subscribe(users => {
+/*         this.dataApi.getAllUsers().subscribe(users => {
           this.users = users;
-        });
+        }); */
         this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
           this.projects = projects;
         });

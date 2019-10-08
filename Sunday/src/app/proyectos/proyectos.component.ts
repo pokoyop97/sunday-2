@@ -70,9 +70,9 @@ export class ProyectosComponent implements OnInit {
         this.user.email = user.email;
         this.user.photoUrl = user.photoURL;
         this.user.User_id = user.uid;
-        this.dataApi.getAllUsers().subscribe(users => {
+/*         this.dataApi.getAllUsers().subscribe(users => {
           this.users = users;
-        });
+        }); */
         this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
           this.projects = projects;
         });
