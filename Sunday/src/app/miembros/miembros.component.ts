@@ -3,7 +3,7 @@ import { AuthService } from "../services/auth.service";
 import { DataApiService } from "../services/data-api.service";
 import { UserInterface } from "../models/user";
 import { SelectItem } from "primeng/primeng";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -22,6 +22,8 @@ import { RolesInterface } from '../models/roles';
   styleUrls: ["./miembros.component.scss"]
 })
 export class MiembrosComponent implements OnInit {
+  public copy: string= "";
+
   public roles: string = "";
   public valorProyecto: string = "";
   public valorProyectoPersonal: string = "";
@@ -40,7 +42,8 @@ export class MiembrosComponent implements OnInit {
     private router: Router,
     private storage: AngularFireStorage,
     private afsAuth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private activatedRoute: ActivatedRoute,
   ) {
   }
   user: UserInterface = {
@@ -54,6 +57,7 @@ export class MiembrosComponent implements OnInit {
   private itemsCollection: AngularFirestoreCollection;
   
   ngOnInit() {
+    
     this.authService.isAuth().subscribe(user => {
       if (user) {
         this.user.name = user.displayName;
@@ -87,7 +91,7 @@ this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChan
   cambiarTipoProyecto(value: any) {
     this.valorProyecto = value;
     this.dataApi.getAllRoles(this.valorProyecto).subscribe(roles => {
-      console.log(roles)
+      console.log(roles) 
       this.rols = roles;
   });
 } 
@@ -95,10 +99,28 @@ this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChan
     const id = Math.random().toString(36).substring(2);
     let newRol = {
       User_id : "",
+      nombre: "",
       rol: this.roles,
+      link:`${this.valorProyectoPersonal}/${id}` ,
     };
-    this.afs.doc(`roles/${this.valorProyecto}`).collection(`rol`).doc(`${id}`).set(newRol);
+    this.afs.doc(`roles/${this.valorProyectoPersonal}`).collection(`rol`).doc(`${id}`).set(newRol);
   }
+
+  copyToClipboard() {
+    this.copy = document.getElementById('link').innerHTML; 
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.copy;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
   onLogout() {
     this.authService.logoutUser();
     this.onLoginRedirect();

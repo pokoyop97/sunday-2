@@ -33,6 +33,7 @@ import { TareasComponent } from './tareas/tareas.component';
 import { ProyectosCrearComponent } from './proyectos-crear/proyectos-crear.component';
 import { initializeApp } from 'firebase';
 import { ChatComponent } from './chat/chat.component';
+import { UnirseComponent } from './unirse/unirse.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { ChatComponent } from './chat/chat.component';
     TareasComponent,
     ProyectosCrearComponent,
     ChatComponent,
+    UnirseComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

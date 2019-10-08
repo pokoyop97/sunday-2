@@ -9,6 +9,7 @@ import { ProyectosComponent } from './proyectos/proyectos.component';
 import { MiembrosComponent } from './miembros/miembros.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { ChatComponent }from './chat/chat.component'
+import { UnirseComponent } from './unirse/unirse.component';
 
 
 const routes: Routes = [
@@ -21,8 +22,7 @@ const routes: Routes = [
   {path: 'miembros', component: MiembrosComponent, pathMatch:'full'},
   {path: 'tareas', component: TareasComponent, pathMatch:'full'},
   {path: 'chat', component: ChatComponent, pathMatch:'full'},
-  
-  
+  {path: 'unirse/:idProyecto/:idRol', component: UnirseComponent},
   
 ];
 

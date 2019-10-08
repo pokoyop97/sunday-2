@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { DataApiService } from "../services/data-api.service";
 import { UserInterface } from "../models/user";
@@ -7,14 +7,9 @@ import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs/internal/Observable";
-import { map } from "rxjs/operators";
-import {
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from "@angular/fire/firestore";
+import { AngularFirestoreCollection, AngularFirestoreDocument } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
-import { ProyectosCrearComponent } from '../proyectos-crear/proyectos-crear.component';
 
 @Component({
   selector: "app-proyectos",
