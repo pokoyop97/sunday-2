@@ -35,7 +35,7 @@
                     {{projects.descripcion}}
                   </p>
                 <div>
-                  <button pButton type="button" label="Ir" class="ui-button-rounded"  (click)="ViewProyecto(projects.Project_id)"[routerLink]="['/create']" routerLinkActive="active"></button>
+                  <button pButton type="button" label="Ir" class="ui-button-rounded"  (click)="ViewProyecto(projects.Project_id, projects.email)"[routerLink]="['/create']" routerLinkActive="active"></button>
                   <button pButton type="button" label="Editar" class="ui-button-rounded"></button>
                   <button pButton type="button" label="Eliminar" class="ui-button-rounded" (click)="onDeleteProject(projects.Project_id, projects.fileref)"></button>
                 </div>

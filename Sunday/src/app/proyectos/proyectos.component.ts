@@ -10,6 +10,7 @@ import { Observable } from "rxjs/internal/Observable";
 import { AngularFirestoreCollection, AngularFirestoreDocument } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
+import { EmailValidator } from '@angular/forms';
 
 @Component({
   selector: "app-proyectos",
@@ -70,9 +71,10 @@ export class ProyectosComponent implements OnInit {
     });
   }
   /* --------------------------------------------------------------------------------------------------------------------------------- */
-  ViewProyecto(value: string){
+  ViewProyecto(value: string, email: string){
     let newCurrent ={
       current: value,
+      correo: email,
     }
     this.afs.collection('current').doc('proyecto').set(newCurrent)
   }
@@ -94,7 +96,8 @@ export class ProyectosComponent implements OnInit {
       name: this.titulo,
       descripcion: this.descripcion,
       img: this.downloadURL,
-      fileref: this.fileref
+      fileref: this.fileref,
+      email: this.user.email,
     };
     this.afs
       .doc(`projects/${this.user.email}`)

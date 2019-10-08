@@ -41,7 +41,8 @@ export class TareasComponent implements OnInit {
   user: UserInterface = {
     name: "",
     email: "",
-    photoUrl: ""
+    photoUrl: "",
+    User_id: ""
   };
   private tasks: TasksInterface[];
   private users: UserInterface[];
@@ -74,6 +75,7 @@ export class TareasComponent implements OnInit {
         this.user.name = user.displayName;
         this.user.email = user.email;
         this.user.photoUrl = user.photoURL;
+        this.user.User_id = user.uid;
       }
       this.dataApi.getAllUsers().subscribe(users => {
         this.users = users;
@@ -128,13 +130,10 @@ export class TareasComponent implements OnInit {
 
   cambiarTipoProyectoPersonal(value: any) {
     this.valorProyecto = value;
-  }
-  cambiarTipoMiembroPersonal(value: any) {
-    this.valorMiembro = value;
     this.cargar();
   }
   cargar(){
-    this.dataApi.getAllTasks(this.valorProyecto,this.valorMiembro).subscribe(tasks => {
+    this.dataApi.getAllTasksByUser(this.valorProyecto,this.user.User_id).subscribe(tasks => {
       this.tasks = tasks;
     });
 
@@ -150,7 +149,8 @@ export class TareasComponent implements OnInit {
       description: this.descripcion,
       fecha: this.date1.toISOString()
     };
-    this.afs.doc(`tareas/${this.valorProyecto}`).collection(`tareas`).doc(`${this.valorMiembro}`).collection(`${this.valorMiembro}`).doc(`${id}`).set(newTask);
+    this.afs.doc(`tareas/${this.valorProyecto}`).collection(`tareas`).doc(`${this.valorMiembro}`).collection(`${this.valorMiembro}`).doc(id).set(newTask);
+    this.afs.doc(`tareas/${this.valorProyecto}`).collection(`works`).doc(id).set(newTask)
   }
 
   onDeleteTask(taskID: string) {

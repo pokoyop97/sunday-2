@@ -4,7 +4,8 @@ import { DataApiService } from "../services/data-api.service";
 import { UserInterface } from "../models/user";
 import { ProjectInterface } from "../models/projects";
 import { TasksInterface } from "../models/tasks";
-import { CurrentInterface } from '../models/current'
+import { CurrentInterface } from '../models/current';
+import { RolesInterface } from '../models/roles'
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
@@ -21,8 +22,9 @@ import { finalize } from "rxjs/operators";
 export class ProyectosCrearComponent implements OnInit {
   public asdf :string;
 
+  private rols: RolesInterface[];
   private tasks: TasksInterface[];
-  private tasksPP: TasksInterface[];
+  private tasksBU: TasksInterface[];
   public titulo: string = "";
   public descripcion: string = "";
   private users: UserInterface[];
@@ -72,11 +74,16 @@ export class ProyectosCrearComponent implements OnInit {
         this.current.get().subscribe(doc=>{
           this.currentInfo.push(doc.data())
           this.asdf = this.currentInfo[0].current;
-            this.dataApi.getAllTasks(this.currentInfo[0].current, user.uid).subscribe(tasks => {
-              console.log(this.currentInfo[0].current, user.uid)
-              console.log("tareas",tasks)
-              this.tasks = tasks;
-            });
+          this.dataApi.getAllTasksByUser(this.currentInfo[0].current, user.uid).subscribe(tasks => {
+            this.tasksBU = tasks;
+          });
+          this.dataApi.getAllTasks(this.currentInfo[0].current).subscribe(tasks => {
+            this.tasks = tasks;
+          });
+          this.dataApi.getAllRoles(this.currentInfo[0].current).subscribe(roles => {
+            this.rols = roles;
+          });
+
         })
         this.dataApi.getAllUsers().subscribe(users => {
           this.users = users;

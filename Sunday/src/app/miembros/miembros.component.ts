@@ -91,7 +91,6 @@ this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChan
   cambiarTipoProyecto(value: any) {
     this.valorProyecto = value;
     this.dataApi.getAllRoles(this.valorProyecto).subscribe(roles => {
-      console.log(roles) 
       this.rols = roles;
   });
 } 
@@ -102,6 +101,7 @@ this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChan
       nombre: "",
       rol: this.roles,
       link:`${this.valorProyectoPersonal}/${id}` ,
+      pertenece: this.user.email
     };
     this.afs.doc(`roles/${this.valorProyectoPersonal}`).collection(`rol`).doc(`${id}`).set(newRol);
   }

@@ -3,6 +3,8 @@ import { AuthService } from '../services/auth.service';
 import { UserInterface} from '../models/user'
 import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { DataApiService } from '../services/data-api.service';
+import { RolesInterface } from '../models/roles'
 
 @Component({
   selector: 'app-unirse',
@@ -12,10 +14,11 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 export class UnirseComponent implements OnInit {
   public idpro: string= "";
   public idrol: string= "";
+  private rols: RolesInterface[];
   
   private itemsCollection: AngularFirestoreCollection<any>;
 
-  constructor( private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute,private afs: AngularFirestore) { }
+  constructor( private router: Router, private authService: AuthService, private activatedRoute: ActivatedRoute,private afs: AngularFirestore, private dataApi: DataApiService) { }
 
 /*   ------------------------------------------------------------------------------------------------------------------------------------------ */
   user: UserInterface = {
@@ -35,7 +38,12 @@ export class UnirseComponent implements OnInit {
         this.user.photoUrl = user.photoURL;
         this.user.User_id = user.uid;
       }
-      let data = {
+      this.dataApi.getAllRoles(this.idpro).subscribe(roles => {
+        console.log(roles) 
+        this.rols = roles;
+    });
+    
+      /* let data = {
         User_id: this.user.User_id,
         nombre: this.user.name,
   
@@ -44,6 +52,7 @@ export class UnirseComponent implements OnInit {
       
       this.itemsCollection.doc(this.idrol).update(data).then(data=>{this.router.navigate(['/refi'])
       }).catch(err=>console.log(err));
+       */
     })
     
   }

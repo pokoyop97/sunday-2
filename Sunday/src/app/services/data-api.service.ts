@@ -51,8 +51,20 @@ export class DataApiService {
   }));
   }
 
-  public getAllTasks(proyecto: string,user: string){
+  public getAllTasksByUser(proyecto: string,user: string){
     this.ProjectCollection = this.afs.collection<ProjectInterface>(`tareas/`+proyecto+`/tareas/`+user+`/`+user+`/`);
+    return this.projects = this.ProjectCollection.snapshotChanges()
+    .pipe(map(changes=>{
+      return changes.map( action=>{
+      const data = action.payload.doc.data() as ProjectInterface;
+      data.Project_id = action.payload.doc.id;
+      return data;
+    });
+  }));
+  }
+
+  public getAllTasks(proyecto: string){
+    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tareas/`+proyecto+`/works/`);
     return this.projects = this.ProjectCollection.snapshotChanges()
     .pipe(map(changes=>{
       return changes.map( action=>{
@@ -70,7 +82,6 @@ export class DataApiService {
       return changes.map( action=>{
       const data = action.payload.doc.data() as RolesInterface;
       data.Rol_id = action.payload.doc.id;
-      console.log(data.rol)
       return data;
     });
   }));

@@ -48,3 +48,25 @@
               </thead>
             </table>
   </section>
+  
+  <section class="mt-5 container-tasks">
+    <h3>Roles</h3>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Link</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+
+      <tr *ngFor="let roles of rols; let indice=index">
+            <td>{{roles.nombre}}</td>
+
+            <td>{{roles.rol}}</td>
+            <td id=link>https://sunday-5fc9e.web.app/unirse/{{roles.link}}</td>
+            <td><button pButton type="button" label="Asignar" class="ui-button-rounded" (click)="copyToClipboard()"></button></td>
+          </tr>
+          </thead>
+        </table>
+</section>

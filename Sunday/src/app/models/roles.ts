@@ -3,5 +3,6 @@ export interface RolesInterface {
     User_id?: string;
     nombre?: string;
     rol?: string;
-    lin?: string;
+    link?: string;
+    pertenece?:string;
   }
