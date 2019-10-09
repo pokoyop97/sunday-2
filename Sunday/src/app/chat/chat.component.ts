@@ -53,43 +53,81 @@ export class ChatComponent implements OnInit {
         this.user.email = user.email;
         this.user.photoUrl = user.photoURL;
       }
-/* -------------------------Proyectos que creo------------------------------------------------------------ */
       this.afs
-        .doc(`projects/${this.user.email}`)
-        .collection(`/creados/`)
-        .snapshotChanges()
-        .pipe(
-          map(actions =>
-            actions.map(a => {
-              const data = a.payload.doc.data();
-              const id = a.payload.doc.id;
-              return { id, data };
-            })
-          )
-        )
-        .subscribe(data => {
-          data.forEach((dato: any) => {
-            this.itemsCollection = this.afs
-              .doc(`projects/${this.user.email}`)
-              .collection(`/creados`);
-            this.itemsCollection.valueChanges().subscribe((data: any) => {
-              data.forEach(dato2 => {
-                this.datosProyecto = {
-                  Project_id: dato.id,
-                  name: dato.data.name,
-                  description: dato.data.descripcion
-                };
-              });
-              this.proyectos.push({
-                name: dato.data.name,
-                descripcion: dato.data.descripcion,
-                Project_id: dato.id
-              });
-            });
+    .doc(`unido/${this.user.email}`)
+    .collection(`/rol`)
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, data };
+        })
+      )
+    )
+    .subscribe(data => {
+      data.forEach((dato: any) => {
+        this.itemsCollection = this.afs
+          .doc(`unido/${this.user.email}`)
+          .collection(`/rol`);
+        this.itemsCollection.valueChanges().subscribe((data: any) => {
+          data.forEach(dato2 => {
+            this.datosProyecto = {
+              Project_id: dato.id,
+              name: dato.data.name,
+              description: dato.data.descripcion
+            };
+          });
+          console.log(dato.id)
+          this.proyectos.push({
+            name: dato.data.name,
+            descripcion: dato.data.descripcion,
+            Project_id: dato.id
           });
         });
+      });
     });
+/* -------------------------Proyectos que creo------------------------------------------------------------ */
+    this.afs
+    .doc(`projects/${this.user.email}`)
+    .collection(`/creados/`)
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, data };
+        })
+      )
+    )
+    .subscribe(data => {
+      data.forEach((dato: any) => {
+        this.itemsCollection = this.afs
+          .doc(`projects/${this.user.email}`)
+          .collection(`/creados`);
+        this.itemsCollection.valueChanges().subscribe((data: any) => {
+          data.forEach(dato2 => {
+            this.datosProyecto = {
+              Project_id: dato.id,
+              name: dato.data.name,
+              description: dato.data.descripcion
+            };
+          });
+          this.proyectos.push({
+            name: dato.data.name,
+            descripcion: dato.data.descripcion,
+            Project_id: dato.id
+          });
+
+        });
+      });
+    });
+    }); 
+    
   }
+
   cambiarTipoProyecto(value: any) {
     this.valorProyecto = value;
     this.chatservice.cargarMensajes(this.user.email,value).subscribe((mensajes:any[])=>{{        this.chatservice.chats = [];

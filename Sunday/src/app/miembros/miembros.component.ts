@@ -101,6 +101,9 @@ export class MiembrosComponent implements OnInit {
   });
 } 
   onAddRol(){
+    if(this.roles==""){
+      alert("Agregue el nombre del rol")
+    }else{
     const generar = Math.random().toString(36).substring(2);
     let newRol = {
       User_id : "",
@@ -139,7 +142,7 @@ export class MiembrosComponent implements OnInit {
                  this.afs.doc(`unido/${this.user.email}`).collection(this.valorProyectoPersonal).doc(generar).set(unirse); 
               }})})});
     
-
+            }
   }
 
   copyToClipboard() {

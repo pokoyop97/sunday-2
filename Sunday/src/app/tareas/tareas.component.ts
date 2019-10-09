@@ -77,10 +77,10 @@ export class TareasComponent implements OnInit {
         this.user.photoUrl = user.photoURL;
         this.user.User_id = user.uid;
       }
-/*       this.dataApi.getAllUsers().subscribe(users => {
+     this.dataApi.getAllUsers().subscribe(users => {
         this.users = users;
       });
- */
+ 
 
       this.afs
         .doc(`projects/${this.user.email}`)
@@ -130,16 +130,32 @@ export class TareasComponent implements OnInit {
 
   cambiarTipoProyectoPersonal(value: any) {
     this.valorProyecto = value;
-    this.cargar();
-  }
-  cargar(){
     this.dataApi.getAllTasksByUser(this.valorProyecto,this.user.User_id).subscribe(tasks => {
       this.tasks = tasks;
     });
-
   }
 
   onAddTask() {
+    if(this.name==""){
+      alert("Ingrese el nombre de la tarea")
+      if(this.descripcion==""){
+        alert("Ingrese la descripcion de la tarea")
+        if(this.valorPrioridad==""){
+          alert("Elija una prioridad para la tarea")
+          if(this.valorProyecto==""){
+            alert("Elija un proyecto para agregar la tarea")
+            if(this.valorMiembro==""){
+              alert("Elija un miembro para asignarle la tarea")
+            }else{
+              this.procedimiento()
+            }
+          }
+        }
+      }
+    }
+  }
+
+  procedimiento(){
     const id = Math.random().toString(36).substring(2);
     let newTask = {
       Project_id: this.valorProyecto,

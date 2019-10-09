@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from "../services/auth.service";
 import { DataApiService } from "../services/data-api.service";
 import { UserInterface } from "../models/user";
@@ -20,7 +20,10 @@ import { map } from "rxjs/operators";
   styleUrls: ["./proyectos.component.scss"]
 })
 export class ProyectosComponent implements OnInit {
+  @ViewChild('imageUser',{static: false}) inputImageUser: ElementRef;
   private itemsCollection: AngularFirestoreCollection<any>;
+  downloadURL: Observable<string>;
+  uploadPercent: Observable<number>;
   
   public email: string= "";
   public idpro: string= "";
@@ -36,8 +39,6 @@ export class ProyectosComponent implements OnInit {
   public providerId: string = "null";
   public fileref: string;
 
-  downloadURL: Observable<string>;
-  uploadPercent: Observable<number>;
 
   private ProjectCollection: AngularFirestoreCollection<ProjectInterface>;
   private projectos: Observable<ProjectInterface[]>;
@@ -100,8 +101,34 @@ export class ProyectosComponent implements OnInit {
   }
 
   onAddProject() {
-    this.onAddProjectDoc();
-    this.onAddProjectName();
+
+    if(this.titulo == ""){
+      alert("Ingrese un titulo para el proyecto")
+      if(this.descripcion == ""){
+        alert("Ingrese una descripcion para el proyecto")
+        if(this.downloadURL == undefined){
+          alert("Agregue una imagen")
+        }else{
+          this.onAddProjectDoc();
+          this.onAddProjectName();
+        }
+      } 
+    }else if(this.descripcion == ""){
+      alert("Ingrese una descripcion para el proyecto")
+      if(this.downloadURL == undefined){
+        alert("Agregue una imagen")
+      }else{
+        this.onAddProjectDoc();
+        this.onAddProjectName();
+      }
+    }else{
+      if(this.downloadURL == undefined){
+        alert("Agregue una imagen")
+      }else{
+        this.onAddProjectDoc();
+        this.onAddProjectName();
+      }
+    }
   }
   onAddProjectDoc() {
     const projectRef: AngularFirestoreDocument<any> = this.afs.doc(
@@ -126,25 +153,13 @@ export class ProyectosComponent implements OnInit {
       .add(newProject);
   }
   onUpload(e) {
-    const id = Math.random()
-      .toString(36)
-      .substring(2);
+    const id = Math.random().toString(36).substring(2);
     const file = e.target.files[0];
     const filePath = `projects/${this.user.email}/creados/${id}`;
     const ref = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
     this.uploadPercent = task.percentageChanges();
-    task
-      .snapshotChanges()
-      .pipe(
-        finalize(() => {
-          ref.getDownloadURL().subscribe(url => {
-            this.downloadURL = url;
-            this.fileref = filePath;
-          });
-        })
-      )
-      .subscribe();
+    task.snapshotChanges().pipe(finalize(() => {ref.getDownloadURL().subscribe(url => {this.downloadURL = url;this.fileref = filePath;});})).subscribe();
   }
   onDeleteProject(docID: string, image: string) {
     const storageRef = this.storage.storage.ref();

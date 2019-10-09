@@ -28,7 +28,7 @@ export class DataApiService {
   private userDoc: AngularFirestoreDocument<UserInterface>;
   
 
-/*   public getAllUsers() {
+  public getAllUsers() {
     this.UserCollection = this.afs.collection<UserInterface>('users');
     return this.users = this.UserCollection.snapshotChanges()
       .pipe(map(changes => {
@@ -38,7 +38,7 @@ export class DataApiService {
           return data;
         });
       }));
-  } */
+  } 
 
   public getAllProjects(email: string){
     this.ProjectCollection = this.afs.collection<ProjectInterface>(`projects/`+email+`/creados`);
