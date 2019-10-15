@@ -65,6 +65,7 @@ export class DataApiService {
       const data = action.payload.doc.data() as ProjectInterface;
       data.Project_id = action.payload.doc.id;
       return data;
+      
     });
   }));
   }

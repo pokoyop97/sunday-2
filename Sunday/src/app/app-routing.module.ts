@@ -10,6 +10,7 @@ import { MiembrosComponent } from './miembros/miembros.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { ChatComponent }from './chat/chat.component'
 import { UnirseComponent } from './unirse/unirse.component';
+import { ProyectosCrearUnidoComponent } from './proyectos-crear-unido/proyectos-crear-unido.component'
 
 /* ---------------------------------------------------------------ssd--------------------------------------------------------------- */
 import { UnoComponent } from './ssd/uno/uno.component'
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'refi',component: InsideComponent,pathMatch:'full'},
   {path: 'register', component: RegisterComponent, pathMatch:'full'},
   {path: 'create', component: ProyectosCrearComponent, pathMatch:'full'},
+  {path: 'create-unido', component: ProyectosCrearUnidoComponent, pathMatch:'full'},
   {path: 'proyectos', component: ProyectosComponent, pathMatch:'full'},
   {path: 'miembros', component: MiembrosComponent, pathMatch:'full'},
   {path: 'tareas', component: TareasComponent, pathMatch:'full'},

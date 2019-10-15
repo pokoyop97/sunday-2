@@ -1,0 +1,72 @@
+<section>
+    <nav class="menu" tabindex="0">
+      <div class="smartphone-menu-trigger"></div>
+    <header class="avatar" *ngIf="user.photoUrl">
+          <img [src]="user.photoUrl" />
+      <h2>{{user.name}}</h2>
+    </header>
+      <ul>
+      <li tabindex="1" class="icon-dashboard btn" [routerLink]="['/proyectos']" routerLinkActive="active"><span>Proyectos</span></li>
+      <li tabindex="2" class="icon-customers btn" [routerLink]="['/tareas']" routerLinkActive="active"><span>Tareas</span></li>
+      <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>  
+      <li tabindex="4" class="icon-users btn"     [routerLink]="['/chat']" routerLinkActive="active"><span>Chat</span></li>
+      
+    </ul>
+    <ul>
+      <li tabindex="5" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
+    </ul>
+  </nav>  
+  </section>
+  
+<section class="mt-5 container-tasks">
+  <h3>Tareas del proyecto</h3>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Prioridad</th>
+          <th scope="col">Fecha</th>
+          <th scope="col">Encargado</th>
+
+          <th scope="col">&nbsp;</th>
+        </tr>
+
+      <tr *ngFor="let task of tasksU; let indice=index">
+        
+            <td>
+              {{task.name}}
+            </td>
+            <td >
+                {{task.description}}
+            </td>
+            <td>{{task.prioridad}}</td>
+            <td>{{task.fecha}}</td>
+            <td>{{task.User_id}}</td>
+            <td><button pButton type="button" label="Eliminar" class="ui-button-rounded" (click)="asignar()"></button></td>
+          </tr>
+          </thead>
+        </table>
+</section>
+
+<section class="mt-5 container-tasks">
+<h3>Roles</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Link</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+
+  <tr *ngFor="let roles of rolsU; let indice=index">
+        <td>{{roles.nombre}}</td>
+
+        <td>{{roles.rol}}</td>
+        <td id=link>https://sunday-5fc9e.web.app/unirse/{{roles.link}}</td>
+        <td><button pButton type="button" label="Asignar" class="ui-button-rounded" (click)="copyToClipboard()"></button></td>
+      </tr>
+      </thead>
+    </table>
+</section>

@@ -15,11 +15,11 @@ import { AngularFireStorage } from "@angular/fire/storage";
 import { finalize } from "rxjs/operators";
 
 @Component({
-  selector: 'app-proyectos-crear',
-  templateUrl: './proyectos-crear.component.html',
-  styleUrls: ['./proyectos-crear.component.scss']
+  selector: 'app-proyectos-crear-unido',
+  templateUrl: './proyectos-crear-unido.component.html',
+  styleUrls: ['./proyectos-crear-unido.component.scss']
 })
-export class ProyectosCrearComponent implements OnInit {
+export class ProyectosCrearUnidoComponent implements OnInit {
   public asdf :string;
   public asdfg :string;
 
@@ -46,7 +46,6 @@ export class ProyectosCrearComponent implements OnInit {
   private projectos: Observable<ProjectInterface[]>;
   private userDoc: AngularFirestoreDocument<UserInterface>;
 
-  private current: AngularFirestoreDocument<CurrentInterface>;
   private currentU: AngularFirestoreDocument<CurrentInterface>;
 
   constructor(
@@ -67,7 +66,6 @@ export class ProyectosCrearComponent implements OnInit {
     photoUrl: "",
     User_id: ""
   };
-
   /* --------------------------------------------------------------------------------------------------------------------------------- */
   ngOnInit() {
     this.authService.isAuth().subscribe(user => {
@@ -77,23 +75,19 @@ export class ProyectosCrearComponent implements OnInit {
         this.user.photoUrl = user.photoURL;
         this.user.User_id = user.uid;
 
-        this.current = this.afs.doc<CurrentInterface>('current/proyecto');
-        this.current.get().subscribe(doc=>{
-          this.currentInfo.push(doc.data())
-          this.asdf = this.currentInfo[0].current;
-          this.dataApi.getAllTasksByUser(this.asdf, user.uid).subscribe(tasks => {
+        this.currentU = this.afs.doc<CurrentInterface>('currentUnido/proyecto');
+        this.currentU.get().subscribe(doc=>{
+          this.currentInfoU.push(doc.data())
+          this.dataApi.getAllTasksByUser(this.currentInfoU[0].current, user.uid).subscribe(tasks => {
             this.tasksBU = tasks;
           });
-          this.dataApi.getAllTasks(this.asdf).subscribe(tasks => {
-            this.tasks = tasks;
+          this.dataApi.getAllTasks(this.currentInfoU[0].current).subscribe(tasks => {
+            this.tasksU = tasks;
           });
-          this.dataApi.getAllRoles(this.asdf).subscribe(roles => {
-            this.rols = roles;
-          });
+          this.dataApi.getAllRoles(this.currentInfoU[0].current).subscribe(roles => {
+            this.rolsU = roles;
+          })
         })
-        
-
-
 /*         this.dataApi.getAllUsers().subscribe(users => {
           this.users = users;
         }); */
@@ -136,4 +130,5 @@ export class ProyectosCrearComponent implements OnInit {
   onLoginRedirect(): void {
     this.router.navigate(["/login"]);
   }
+
 }
