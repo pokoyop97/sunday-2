@@ -1,0 +1,195 @@
+<section>
+    <ng-container *ngIf="show1">
+    <div  class="center">
+        <h3 style="padding: 15px">¿Es tu primera vez haciendo ejercicio?</h3>
+        <button pButton type="button" label="Si" class="ui-button-rounded"style="min-width: 200px !important;" (click)="uno1()"></button>
+        <button pButton type="button" label="No" class="ui-button-rounded"style="min-width: 200px !important;" (click)="uno2()"></button>
+    </div>
+    </ng-container>
+</section>
+<section>
+    <ng-container *ngIf="show2">
+        <div  class="center">
+            <h3>¿Tienes conocimientos de estos?</h3>
+            <button pButton type="button" label="Si" class="ui-button-rounded"style="min-width: 200px !important;" (click)="dos1()"></button>
+            <button pButton type="button" label="No" class="ui-button-rounded"style="min-width: 200px !important;" (click)="dos2()"></button>    
+        </div>
+    </ng-container>
+</section>
+    
+
+<section>
+        <ng-container *ngIf="show3">
+    <div  class="center">
+        <h3>¿Conoces los ejecicios o musculos?</h3>
+        <button pButton type="button" label="Si" class="ui-button-rounded"style="min-width: 200px !important;" (click)="tres1()"></button>
+        <button pButton type="button" label="No" class="ui-button-rounded"style="min-width: 200px !important;" (click)="tres2()"></button>
+    </div>  
+</ng-container>
+</section>
+<section>
+        <ng-container *ngIf="show4">
+    <div  class="center">
+        <h3>¿Que resultados busca?</h3>
+        <button pButton type="button" label="Bajar de peso" class="ui-button-rounded"style="min-width: 200px !important;" (click)="cuatro1()"></button>
+        <button pButton type="button" label="Ganar musculo" class="ui-button-rounded"style="min-width: 200px !important;" (click)="cuatro2()"></button>
+    </div>
+    </ng-container>
+</section>
+<section>
+        <ng-container *ngIf="show5">
+    <div  class="center">
+        <h3>¿Tiene problemas cardiacos?</h3>
+        <button pButton type="button" label="Si" class="ui-button-rounded"style="min-width: 200px !important;" (click)="cinco1()"></button>
+        <button pButton type="button" label="No" class="ui-button-rounded"style="min-width: 200px !important;" (click)="cinco2()"></button>
+    </div>
+    </ng-container>
+</section>
+<section>
+        <ng-container *ngIf="show6">
+    <div  class="center">
+        <h3>¿cuenta con la facilidad para seguir dietas?</h3>
+        <button pButton type="button" label="Si" class="ui-button-rounded"style="min-width: 200px !important;" (click)="seis1()"></button>
+        <button pButton type="button" label="No" class="ui-button-rounded"style="min-width: 200px !important;" (click)="seis2()"></button>    
+    </div>
+    </ng-container>
+</section>
+<section>
+        <ng-container *ngIf="show7">
+    <div  class="center">
+            <h3>¿Le impide hacer ejercicio?</h3>
+            <button pButton type="button" label="Si" class="ui-button-rounded"style="min-width: 200px !important;" (click)="siete1()"></button>
+            <button pButton type="button" label="No" class="ui-button-rounded"style="min-width: 200px !important;" (click)="siete2()"></button>
+    </div>
+    </ng-container>
+</section>
+<section>
+        <ng-container *ngIf="show8">
+    <div  class="center">
+        <h3>{{planes}}</h3>
+        <button pButton type="button" label="Continuar" class="ui-button-rounded"style="min-width: 200px !important;" (click)="ocho1()"></button>
+    </div>
+    </ng-container>
+</section>
+
+
+<section>
+        <ng-container *ngIf="show9">
+    <div  class="center">
+        <h3>Ingrese su peso y estatura</h3>    
+        <input name="peso" class="form-control" placeholder="Ingrese su peso" [(ngModel)]="peso">
+        <input name="estatura" class="form-control" placeholder="Ingrese su estatura" [(ngModel)]="estatura">
+        <button pButton type="button" label="Enviar" class="ui-button-rounded"style="min-width: 200px !important;" (click)="nueve1(peso, estatura)"></button>
+    </div>
+          </ng-container>      
+</section>
+
+
+
+
+<section>
+    <ng-container *ngIf="dietMusculo">
+<div  class="center">
+    <h3>Plan</h3>
+    <h3>Basandonos en tu peso que es: {{peso}} y su altura que es: {{estatura}} tendras esta rutina:</h3>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Comida</th>
+            <th scope="col">Carne</th>
+            <th scope="col">Arroz</th>
+            <th scope="col">Nueces</th>
+  
+            <th scope="col">&nbsp;</th>
+          </tr>
+
+        <tr *ngFor="let planes of dietaMusculo; let indice=index">
+              <td>
+                {{planes.desayuno}}
+                {{planes.comida}}
+                {{planes.cena}}
+              </td>
+              <td >
+                  {{planes.pollo}}
+              </td>
+              <td>{{planes.arroz}}</td>
+              <td>{{planes.nueces}}</td>
+              
+            </tr>
+            </thead>
+          </table> 
+</div> 
+</ng-container> 
+</section>
+
+<section>
+    <ng-container *ngIf="dietCardio">
+<div  class="center">
+    <h3>Plan</h3>
+    <h3>Basandonos en tu peso que es: {{peso}} y su altura que es: {{estatura}} tendras esta rutina:</h3>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Comida</th>
+            <th scope="col">Carne</th>
+            <th scope="col">Arroz</th>
+            <th scope="col">Nueces</th>
+  
+            <th scope="col">&nbsp;</th>
+          </tr>
+
+        <tr *ngFor="let planes of dietaCardio; let indice=index">
+          
+              <td>
+                {{planes.desayuno}}
+                {{planes.comida}}
+                {{planes.cena}}
+              </td>
+              <td >
+                  {{planes.pollo}}
+              </td>
+              <td>{{planes.arroz}}</td>
+              <td>{{planes.nueces}}</td>
+              
+            </tr>
+            </thead>
+          </table> 
+</div> 
+</ng-container> 
+</section>
+
+<section>
+    <ng-container *ngIf="diet">
+<div  class="center">
+    <h3>Plan</h3>
+    <h3>Basandonos en tu peso que es: {{peso}} y su altura que es: {{estatura}} tendras esta rutina:</h3>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Comida</th>
+            <th scope="col">Carne</th>
+            <th scope="col">Arroz</th>
+            <th scope="col">Nueces</th>
+  
+            <th scope="col">&nbsp;</th>
+          </tr>
+
+        <tr *ngFor="let planes of dietas; let indice=index">
+          
+              <td>
+                {{planes.desayuno}}
+                {{planes.comida}}
+                {{planes.cena}}
+              </td>
+              <td >
+                  {{planes.pollo}}
+              </td>
+              <td>{{planes.arroz}}</td>
+              <td>{{planes.nueces}}</td>
+              
+            </tr>
+            </thead>
+          </table> 
+</div> 
+</ng-container> 
+</section>

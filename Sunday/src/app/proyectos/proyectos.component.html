@@ -17,6 +17,24 @@
   </ul>
 </nav>  
 </section>
+<section>
+<div id="crear"class="mt-5 container-proyectos">
+  <input type="titulo" name="titulo" class="form-control" placeholder="Titulo" [(ngModel)]="titulo" required minlength="8">
+  <input type="descripcion" name="descripcion" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion" required minlength="8">
+  <hr>
+        <div class="form-group">
+          <h5>Seleccionar imagen:</h5>
+          <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
+        </div>
+        <div class="progress">
+          <div [style.visibility]="(uploadPercent == 0) ? 'hidden' : 'visible'" class="progress-bar progress-bar-striped bg-success"
+            role="progressbar" [style.width]="(uploadPercent | async) +'%'">
+          </div>
+        </div>
+  <button pButton type="button" label="Crear nuevo proyecto"class="ui-button-rounded ui-button-success" style="min-width: 300px !important;" (click)="onAddProject()"></button>  
+
+</div>
+</section>
 
 <section id="users" class="mt-5 container-proyectos">
   <h3>Administrados</h3>
@@ -77,19 +95,3 @@
   </section>
 
 
-<div id="crear"class="mt-5 container-proyectos">
-  <input type="titulo" name="titulo" class="form-control" placeholder="Titulo" [(ngModel)]="titulo" required minlength="8">
-  <input type="descripcion" name="descripcion" class="form-control" placeholder="Descripcion" [(ngModel)]="descripcion" required minlength="8">
-  <hr>
-        <div class="form-group">
-          <h5>Seleccionar imagen:</h5>
-          <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
-        </div>
-        <div class="progress">
-          <div [style.visibility]="(uploadPercent == 0) ? 'hidden' : 'visible'" class="progress-bar progress-bar-striped bg-success"
-            role="progressbar" [style.width]="(uploadPercent | async) +'%'">
-          </div>
-        </div>
-  <button pButton type="button" label="Crear nuevo proyecto"class="ui-button-rounded ui-button-success" style="min-width: 300px !important;" (click)="onAddProject()"></button>  
-
-</div>

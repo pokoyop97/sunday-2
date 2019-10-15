@@ -167,7 +167,6 @@ export class ProyectosComponent implements OnInit {
       .child(image)
       .delete()
       .then(() => {
-        console.log("se elimino la imagen");
       })
       .catch(err => {
         console.log(err);
@@ -178,7 +177,7 @@ export class ProyectosComponent implements OnInit {
       .doc(docID)
       .delete()
       .then(() => {
-        console.log("se elimino el proyecto");
+        alert("se elimino el proyecto");
       })
       .catch(err => {
         console.log(err);

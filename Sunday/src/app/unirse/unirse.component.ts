@@ -65,8 +65,6 @@ export class UnirseComponent implements OnInit {
                 img: dato.data.img
               };})
               if(dato.id == this.idrol){
-                console.log(this.idpro)
-                console.log(this.idrol)
                 let unirse = {
                   name: dato.data.name,
                   descripcion: dato.data.descripcion,

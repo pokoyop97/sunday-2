@@ -79,7 +79,6 @@ export class ChatComponent implements OnInit {
               description: dato.data.descripcion
             };
           });
-          console.log(dato.id)
           this.proyectos.push({
             name: dato.data.name,
             descripcion: dato.data.descripcion,

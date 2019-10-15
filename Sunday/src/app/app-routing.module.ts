@@ -11,6 +11,10 @@ import { TareasComponent } from './tareas/tareas.component';
 import { ChatComponent }from './chat/chat.component'
 import { UnirseComponent } from './unirse/unirse.component';
 
+/* ---------------------------------------------------------------ssd--------------------------------------------------------------- */
+import { UnoComponent } from './ssd/uno/uno.component'
+/* ---------------------------------------------------------------ssd--------------------------------------------------------------- */
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch:'full'},
@@ -24,7 +28,10 @@ const routes: Routes = [
   {path: 'chat', component: ChatComponent, pathMatch:'full'},
   {path: 'unirse', component: UnirseComponent},
   {path: 'unirse/:idProyecto/:idRol/:email', component: UnirseComponent},
-  
+
+  /* ---------------------------------------------------------------ssd--------------------------------------------------------------- */
+  {path: '1', component: UnoComponent, pathMatch:'full'},
+  /* ---------------------------------------------------------------ssd--------------------------------------------------------------- */
 ];
 
 @NgModule({

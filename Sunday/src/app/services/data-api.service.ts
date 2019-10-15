@@ -5,6 +5,7 @@ import { ProjectInterface } from '../models/projects'
 import { RolesInterface } from '../models/roles'
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
+import { TasksInterface } from '../models/tasks';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,10 +19,14 @@ export class DataApiService {
     this.projects = this.ProjectCollection.valueChanges();
     this.RolesCollection = afs.collection<RolesInterface>('roles');
     this.roles = this.RolesCollection.valueChanges();
+    this.TasksCollection = afs.collection<TasksInterface>('tasks');
+    this.tasks = this.TasksCollection.valueChanges();
   }
   private ProjectCollection: AngularFirestoreCollection<ProjectInterface>;
   private UserCollection: AngularFirestoreCollection<UserInterface>;
   private RolesCollection: AngularFirestoreCollection<RolesInterface>;
+  private TasksCollection: AngularFirestoreCollection<TasksInterface>;
+  private tasks: Observable<TasksInterface[]>;
   private roles: Observable<RolesInterface[]>;
   private users: Observable<UserInterface[]>;
   private projects: Observable<ProjectInterface[]>;
@@ -65,18 +70,16 @@ export class DataApiService {
   }
 
   public getAllTasksByUser(proyecto: string,user: string){
-    this.ProjectCollection = this.afs.collection<ProjectInterface>(`tareas/`+proyecto+`/tareas/`+user+`/`+user+`/`);
-    return this.projects = this.ProjectCollection.snapshotChanges()
+    this.TasksCollection = this.afs.collection<TasksInterface>(`tareas/`+proyecto+`/tareas/`+user+`/`+user+`/`);
+    return this.tasks = this.TasksCollection.snapshotChanges()
     .pipe(map(changes=>{
       return changes.map( action=>{
-      const data = action.payload.doc.data() as ProjectInterface;
-      data.Project_id = action.payload.doc.id;
+      const data = action.payload.doc.data() as TasksInterface;
+      data.tarea_id = action.payload.doc.id;
       return data;
     });
   }));
   }
-
-
 
   public getAllRoles(proyecto: string){
     this.RolesCollection = this.afs.collection<RolesInterface>(`roles/`+proyecto+`/rol/`);

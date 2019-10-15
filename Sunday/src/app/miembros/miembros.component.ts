@@ -131,8 +131,6 @@ export class MiembrosComponent implements OnInit {
                 img: dato.data.img
               };})
               if(dato.id == this.valorProyectoPersonal){
-                console.log(this.valorProyectoPersonal)
-                console.log(dato.id)
                 let unirse = {
                   name: dato.data.name,
                   descripcion: dato.data.descripcion,

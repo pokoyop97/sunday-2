@@ -15,6 +15,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { ProjectInterface } from "../models/projects";
 import { Observable } from "rxjs/internal/Observable";
 import { map } from "rxjs/operators";
+import { Alert } from 'selenium-webdriver';
 @Component({
   selector: "app-tareas",
   templateUrl: "./tareas.component.html",
@@ -127,7 +128,6 @@ export class TareasComponent implements OnInit {
   cambiarTipoPrioridad(value: any) {
     this.valorPrioridad = value;
   }
-
   cambiarTipoProyectoPersonal(value: any) {
     this.valorProyecto = value;
     this.dataApi.getAllTasksByUser(this.valorProyecto,this.user.User_id).subscribe(tasks => {
@@ -140,24 +140,20 @@ export class TareasComponent implements OnInit {
       alert("Ingrese el nombre de la tarea")
       if(this.descripcion==""){
         alert("Ingrese la descripcion de la tarea")
-        if(this.valorPrioridad==""){
-          alert("Elija una prioridad para la tarea")
-          if(this.valorProyecto==""){
-            alert("Elija un proyecto para agregar la tarea")
-            if(this.valorMiembro==""){
-              alert("Elija un miembro para asignarle la tarea")
-            }else{
+          }else{
               this.procedimiento()
+              alert("Se agrego la tarea con exito")
             }
+          }else{
+            this.procedimiento()
+            alert("Se agrego la tarea con exito")
           }
         }
-      }
-    }
-  }
 
   procedimiento(){
     const id = Math.random().toString(36).substring(2);
     let newTask = {
+      tarea_id: id,
       Project_id: this.valorProyecto,
       User_id: this.valorMiembro,
       prioridad: this.valorPrioridad,
@@ -169,14 +165,11 @@ export class TareasComponent implements OnInit {
     this.afs.doc(`tareas/${this.valorProyecto}`).collection(`works`).doc(id).set(newTask)
   }
 
-  onDeleteTask(taskID: string) {
-    this.afs
-      .doc(`tasks/${this.user.email}`)
-      .collection(`tareas/${this.project_id}`)
-      .doc(taskID)
-      .delete()
+  onDeleteTask(taskID: string, proyectoID: string, userID: string) {
+    alert(proyectoID+`,`+ taskID+`,`+ userID)
+    this.afs.doc(`tasks/${proyectoID}`).collection(`tareas/${userID}/${userID}`).doc(taskID).delete()
       .then(() => {
-        console.log("se elimino la tarea");
+        alert("se elimino la tarea");
       })
       .catch(err => {
         console.log(err);

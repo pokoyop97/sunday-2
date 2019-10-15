@@ -104,7 +104,7 @@
                 </td>
                 <td>{{task.prioridad}}</td>
                 <td>{{task.fecha}}</td>
-                <td><button pButton type="button" label="Eliminar" class="ui-button-rounded"></button></td>
+                <td><button pButton type="button" label="Eliminar" class="ui-button-rounded"(click)="onDeleteTask(task.Project_id, task.tarea_id, task.User_id)"></button></td>
               </tr><!-- 
               (click)="onDeleteProject(projects.Project_id, projects.fileref)" -->
               </thead>
