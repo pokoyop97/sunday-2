@@ -47,7 +47,6 @@ export class ProyectosCrearComponent implements OnInit {
   private userDoc: AngularFirestoreDocument<UserInterface>;
 
   private current: AngularFirestoreDocument<CurrentInterface>;
-  private currentU: AngularFirestoreDocument<CurrentInterface>;
 
   constructor(
     private authService: AuthService,
@@ -91,16 +90,9 @@ export class ProyectosCrearComponent implements OnInit {
             this.rols = roles;
           });
         })
-        
-
-
-/*         this.dataApi.getAllUsers().subscribe(users => {
-          this.users = users;
-        }); */
         this.dataApi.getAllProjects(this.user.email).subscribe(projects => {
           this.projects = projects;
         });
-        
       }
     });
   }
