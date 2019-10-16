@@ -98,6 +98,7 @@ export class MiembrosComponent implements OnInit {
     this.valorProyecto = value;
     this.dataApi.getAllRoles(this.valorProyecto).subscribe(roles => {
       this.rols = roles;
+      console.log(this.rols)
   });
 } 
   onAddRol(){
@@ -110,7 +111,8 @@ export class MiembrosComponent implements OnInit {
       nombre: "",
       rol: this.roles,
       link:`${this.valorProyectoPersonal}/${generar}/${this.user.email}` ,
-      pertenece: this.user.email
+      pertenece: this.user.email,
+      
     };
     this.afs.doc(`roles/${this.valorProyectoPersonal}`).collection(`rol`).doc(`${generar}`).set(newRol);
 
@@ -137,7 +139,8 @@ export class MiembrosComponent implements OnInit {
                   Project_id: this.valorProyectoPersonal,
                   img: dato.data.img
                 }                
-                 this.afs.doc(`unido/${this.user.email}`).collection(this.valorProyectoPersonal).doc(generar).set(unirse); 
+                /* 0 es igual a que no esta unido 1 es que si(sirve para el display de proyectos) */
+                this.afs.doc(`unido/${this.user.email}`).collection(this.valorProyectoPersonal).doc(generar).set(unirse); 
               }})})});
     
             }
@@ -166,23 +169,3 @@ export class MiembrosComponent implements OnInit {
     this.router.navigate(["/login"]);
   }
 }
-
-
-/* 
-this.dataApi.getAllUsers().subscribe(users => {
-  this.users = users;
-});
-this.afs.doc(`projects/${this.user.email}`).collection(`/creados/`).snapshotChanges().pipe(map(actions=> actions.map(a=>{ const data = a.payload.doc.data(); const id = a.payload.doc.id; return {id, data};}))).subscribe(data=>{
-  data.forEach((dato:any)=>{
-    this.itemsCollection = this.afs.doc(`projects/${this.user.email}`).collection(`/creados`);
-    this.itemsCollection.valueChanges().subscribe((data:any)=>{
-      data.forEach(dato2=>{
-        this.datosProyecto ={
-          Project_id: dato.id,
-          name: dato.data.name,
-          description: dato.data.descripcion
-        };})
-        this.proyectos.push({
-          name: dato.data.name,
-          descripcion: dato.data.descripcion,
-          Project_id: dato.id,})})})})}); */

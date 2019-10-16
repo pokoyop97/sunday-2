@@ -7,7 +7,6 @@ import { SelectItem } from "primeng/primeng";
 import { Router } from "@angular/router";
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
   AngularFirestoreCollection
 } from "@angular/fire/firestore";
 import { AngularFireStorage } from "@angular/fire/storage";
@@ -15,7 +14,6 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { ProjectInterface } from "../models/projects";
 import { Observable } from "rxjs/internal/Observable";
 import { map } from "rxjs/operators";
-import { Alert } from 'selenium-webdriver';
 @Component({
   selector: "app-tareas",
   templateUrl: "./tareas.component.html",
@@ -78,12 +76,7 @@ export class TareasComponent implements OnInit {
         this.user.photoUrl = user.photoURL;
         this.user.User_id = user.uid;
       }
-     this.dataApi.getAllUsers().subscribe(users => {
-        this.users = users;
-      });
- 
-
-      this.afs
+       this.afs
         .doc(`projects/${this.user.email}`)
         .collection(`/creados/`)
         .snapshotChanges()
@@ -121,6 +114,9 @@ export class TareasComponent implements OnInit {
   }
   cambiarTipoProyecto(value: any) {
     this.valorProyecto = value;
+    this.dataApi.getAllRoles(value).subscribe(users => {
+      this.users = users;
+    });
   }
   cambiarTipoMiembro(value: any) {
     this.valorMiembro = value;

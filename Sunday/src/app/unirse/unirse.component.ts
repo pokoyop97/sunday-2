@@ -69,23 +69,14 @@ export class UnirseComponent implements OnInit {
                   name: dato.data.name,
                   descripcion: dato.data.descripcion,
                   Project_id: this.idpro,
-                  img: dato.data.img
+                  img: dato.data.img,
+                  rol: this.idrol
                 }                
-                 this.afs.doc(`unido/${this.user.email}`).collection("rol").doc(this.idpro).set(unirse); 
-                 this.afs.doc(`unido/${this.email}`).collection(this.idpro).doc(this.idrol).delete()
+                this.afs.doc(`pendientes/${this.user.email}`).collection("rol").doc(this.idpro).set(unirse); 
+                this.afs.doc(`unido/${this.email}`).collection(this.idpro).doc(this.idrol).delete()
+                this.router.navigate(['/refi']) 
               }})})});
-       let data = {
-        User_id: this.user.User_id,
-        nombre: this.user.name,
-  
-      }
-      this.itemsCollection =  this.afs.collection<any>('roles').doc(this.idpro).collection('rol')
-      
-      this.itemsCollection.doc(this.idrol).update(data).then(data=>{this.router.navigate(['/refi'])
-      }).catch(err=>console.log(err));
-       
     })
-    
   }
 /*   ------------------------------------------------------------------------------------------------------------------------------------------ */
 

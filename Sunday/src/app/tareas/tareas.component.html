@@ -10,9 +10,10 @@
       <li tabindex="2" class="icon-customers btn" [routerLink]="['/refi']" routerLinkActive="active"><span>Tareas</span></li>
       <li tabindex="3" class="icon-users btn"     [routerLink]="['/miembros']" routerLinkActive="active"><span>Miembros</span></li>
       <li tabindex="3" class="icon-users btn"     [routerLink]="['/chat']" routerLinkActive="active"><span>Chat</span></li>
+      <li tabindex="5" class="icon-users btn"     [routerLink]="['/solicitudes']" routerLinkActive="active"><span>Solicitudes</span></li>  
     </ul>
     <ul>
-      <li tabindex="5" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
+      <li tabindex="6" class="icon-settings btn" (click)="onLogout()"><span>Salir</span></li>
     </ul>
   </nav>  
   </section>
@@ -60,7 +61,7 @@
                   <select #selectMiembros id="selectMiembros" (change)="cambiarTipoMiembro(selectMiembros.value)" class="ml-3 custom-select">
                       <option value="0">Seleccione</option>
                       <option *ngFor="let user of users;" 
-                      [value]="user.User_id"> {{user.name}} </option>
+                      [value]="user.User_id"> {{user.nombre}} </option>
                       </select>
                 </div>
               </td>
@@ -105,8 +106,7 @@
                 <td>{{task.prioridad}}</td>
                 <td>{{task.fecha}}</td>
                 <td><button pButton type="button" label="Eliminar" class="ui-button-rounded"(click)="onDeleteTask(task.Project_id, task.tarea_id, task.User_id)"></button></td>
-              </tr><!-- 
-              (click)="onDeleteProject(projects.Project_id, projects.fileref)" -->
+              </tr>
               </thead>
             </table>
   </section>

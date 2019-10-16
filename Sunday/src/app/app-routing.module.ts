@@ -10,7 +10,8 @@ import { MiembrosComponent } from './miembros/miembros.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { ChatComponent }from './chat/chat.component'
 import { UnirseComponent } from './unirse/unirse.component';
-import { ProyectosCrearUnidoComponent } from './proyectos-crear-unido/proyectos-crear-unido.component'
+import { ProyectosCrearUnidoComponent } from './proyectos-crear-unido/proyectos-crear-unido.component';
+import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 
 /* ---------------------------------------------------------------ssd--------------------------------------------------------------- */
 import { UnoComponent } from './ssd/uno/uno.component'
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'chat', component: ChatComponent, pathMatch:'full'},
   {path: 'unirse', component: UnirseComponent},
   {path: 'unirse/:idProyecto/:idRol/:email', component: UnirseComponent},
+  {path: 'solicitudes', component: SolicitudesComponent},
 
   /* ---------------------------------------------------------------ssd--------------------------------------------------------------- */
   {path: '1', component: UnoComponent, pathMatch:'full'},

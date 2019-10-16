@@ -36,6 +36,7 @@ import { ChatComponent } from './chat/chat.component';
 import { UnirseComponent } from './unirse/unirse.component';
 import { UnoComponent } from './ssd/uno/uno.component';
 import { ProyectosCrearUnidoComponent } from './proyectos-crear-unido/proyectos-crear-unido.component';
+import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +54,7 @@ import { ProyectosCrearUnidoComponent } from './proyectos-crear-unido/proyectos-
     UnirseComponent,
     UnoComponent,
     ProyectosCrearUnidoComponent,
+    SolicitudesComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

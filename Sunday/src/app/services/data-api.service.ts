@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { UserInterface } from '../models/user';
 import { ProjectInterface } from '../models/projects'
@@ -101,6 +101,17 @@ export class DataApiService {
       return changes.map( action=>{
       const data = action.payload.doc.data() as ProjectInterface;
       data.Project_id = action.payload.doc.id;
+      return data;
+    });
+  }));
+  }public getAllProjectsPendientes(email: string){
+    this.ProjectCollection = this.afs.collection<ProjectInterface>(`pendientes/`+email+`/rol`);
+    return this.projects = this.ProjectCollection.snapshotChanges()
+    .pipe(map(changes=>{
+      return changes.map( action=>{
+      const data = action.payload.doc.data() as ProjectInterface;
+      data.Project_id = action.payload.doc.id;
+        console.log(data)
       return data;
     });
   }));
